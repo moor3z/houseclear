@@ -1,0 +1,6 @@
+# Python cache only — site/ IS committed (GTW-style workflow).
+# Netlify rebuilds site/ from source on every deploy anyway (netlify.toml),
+# so a stale committed copy can never go live.
+__pycache__/
+*.pyc
+shot_*.png

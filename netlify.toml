@@ -1,0 +1,5 @@
+# HouseClear — Netlify build configuration
+# Netlify's build image includes Python 3; build.py has no pip dependencies.
+[build]
+  command = "python3 build.py"
+  publish = "site"
