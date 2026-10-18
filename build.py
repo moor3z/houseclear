@@ -12,10 +12,13 @@ from guides_data import GUIDES, GUIDE_CLUSTERS
 
 # ---------------------------------------------------------------- config ---
 DOMAIN   = "https://houseclear.uk"                  # live domain (Cloudflare)
-PHONE    = "01244 000 000"                          # TODO: set real number
-PHONE_E164 = "+441244000000"                        # TODO: set real number
-WHATSAPP = "447000000000"                           # TODO: set real number
-EMAIL    = "hello@houseclear.uk"                    # TODO: set up mailbox/forwarding
+PHONE      = "01244 722 330"        # HouseClear line (default sitewide)
+PHONE_E164 = "+441244722330"
+PHONE2     = "0151 440 3704"        # Liverpool/Merseyside (used on Liverpool & Wirral pages)
+PHONE2_E164 = "+441514403704"
+WA_LINK  = "https://wa.me/message/R42OUVB7Q6DHE1"   # WhatsApp Business link
+GBP_URL  = "https://maps.app.goo.gl/ENYvPdr3JCx8Pux27"  # Google Business Profile
+EMAIL    = "steven@tidyupltd.com"
 GA4_ID   = "G-XXXXXXXXXX"                           # TODO: set GA4 Measurement ID
 COMPANY_NO = "14294404"
 REG_OFFICE = "Unit 5 Catherine Court, Manor Lane, Hawarden, Deeside, CH5 3NU"
@@ -29,6 +32,10 @@ BASE  = os.environ.get("BASE_PATH", "").rstrip("/")
 OUT   = os.path.join(os.path.dirname(__file__), os.environ.get("OUT_DIR", "site"))
 
 AREAS_HEADLINE = ["Cheshire", "Flintshire", "Liverpool", "The Wirral", "Denbighshire"]
+
+_PHONE_OVERRIDE = None  # (display, e164) — set per-page for regional numbers
+def cur_phone():
+    return _PHONE_OVERRIDE or (PHONE, PHONE_E164)
 
 def loc_url(slug): return f"/{slug}/"
 def svc_url(slug): return f"/services/{slug}/"
@@ -44,6 +51,23 @@ for g in GUIDES:
 
 # ------------------------------------------------------------ components ---
 def esc(t): return html.escape(t, quote=True)
+
+import re as _re
+def esc_keep_links(text):
+    """esc() for copy that may contain trusted internal <a href="/..."> links."""
+    out = esc(text)
+    out = _re.sub(r'&lt;a href=&quot;(/[^&]*?)&quot;&gt;', r'<a href="\1">', out)
+    out = out.replace("&lt;/a&gt;", "</a>")
+    return out
+
+
+
+def ga_snippet():
+    """GA4 only when a real Measurement ID is configured; injected after load so it never blocks render."""
+    if not GA4_ID or GA4_ID.startswith("G-XXXX"):
+        return "<!-- GA4: set GA4_ID in build.py to enable analytics -->"
+    return f"""<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{GA4_ID}');
+window.addEventListener('load',function(){{var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id={GA4_ID}';document.head.appendChild(s);}});</script>"""
 
 def head(title, meta, canonical, schema_blocks):
     schemas = "\n".join(
@@ -68,14 +92,17 @@ def head(title, meta, canonical, schema_blocks):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{DOMAIN}/assets/og-image.jpg">
 <meta name="theme-color" content="#0A2540">
+<link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" media="(min-width: 641px)">
+<link rel="preload" as="image" href="/assets/hero-mobile.webp" fetchpriority="high" media="(max-width: 640px)">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{GA4_ID}');</script>
+{ga_snippet()}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="/assets/styles.css">
 {schemas}
 </head>
@@ -91,14 +118,19 @@ NAV_SERVICE_GROUPS = [
 ]
 NAV_AREA_GROUPS = [
     ("Cheshire", ["house-clearance-cheshire", "house-clearance-chester",
-                  "house-clearance-ellesmere-port", "house-clearance-northwich"]),
+                  "house-clearance-crewe", "house-clearance-ellesmere-port",
+                  "house-clearance-knutsford", "house-clearance-northwich",
+                  "house-clearance-warrington", "house-clearance-widnes",
+                  "house-clearance-wilmslow"]),
     ("Merseyside", ["house-clearance-liverpool", "house-clearance-wirral"]),
-    ("North Wales", ["house-clearance-denbighshire", "house-clearance-flintshire",
-                     "house-clearance-mold", "house-clearance-prestatyn",
-                     "house-clearance-rhyl", "house-clearance-wrexham"]),
+    ("North Wales", ["house-clearance-north-wales", "house-clearance-buckley", "house-clearance-denbighshire",
+                     "house-clearance-flintshire", "house-clearance-mold",
+                     "house-clearance-prestatyn", "house-clearance-rhyl",
+                     "house-clearance-wrexham"]),
 ]
 
 def header_nav(active=""):
+    p, p164 = cur_phone()
     def a(href, label, key):
         cls = ' class="active"' if key == active else ""
         return f'<a href="{href}"{cls}>{label}</a>'
@@ -140,7 +172,7 @@ def header_nav(active=""):
       {a('/guides/', 'Guides', 'guides')}
     </nav>
     <div class="header-cta">
-      <a class="btn btn-ghost btn-call" href="tel:{PHONE_E164}">{phone_icon()} {PHONE}</a>
+      <a class="btn btn-ghost btn-call" href="tel:{p164}">{phone_icon()} Call Today</a>
       <a class="btn btn-primary" href="/quote/">Get a Free Quote</a>
     </div>
     <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -164,18 +196,20 @@ def compliance_strip():
 def key_facts(summary, facts):
     """GEO/LLM answer-first block: a self-contained summary sentence plus
     short factual bullets that generative engines can quote directly."""
-    lis = "".join(f"<li>{esc(f)}</li>" for f in facts)
+    tick = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    lis = "".join(f'<li><span class="kf-tick">{tick}</span>{esc(f)}</li>' for f in facts)
     return f"""<section class="section key-facts-section"><div class="wrap wrap-narrow">
 <div class="key-facts" role="note">
-<h2 class="key-facts-title">At a glance</h2>
+<p class="kf-badge">At a glance</p>
 <p class="key-facts-summary">{esc(summary)}</p>
-<ul class="tick-list">{lis}</ul>
+<ul class="kf-grid">{lis}</ul>
 </div></div></section>"""
 
 def hero_mark(cls="hero-mark"):
     return f"""<svg class="{cls}" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M17 3 3 15h4v14h10v-9h6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 24l4 4 8-9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>"""
 
 def hero(h1, sub, small=False, eyebrow=None, with_form=False):
+    p, p164 = cur_phone()
     eb = f'<p class="eyebrow">{esc(eyebrow)}</p>' if eyebrow else ""
     cls = "hero hero-small" if small else "hero"
     if with_form:
@@ -188,10 +222,10 @@ def hero(h1, sub, small=False, eyebrow=None, with_form=False):
       <h1>{h1}</h1>
       <p class="hero-sub">{sub}</p>
       <div class="hero-ctas">
-        <a class="btn btn-light btn-lg" href="tel:{PHONE_E164}">{phone_icon()} Call {PHONE}</a>
-        <a class="btn btn-wa btn-lg" href="https://wa.me/{WHATSAPP}?text=Hi%20HouseClear%2C%20I%27d%20like%20a%20clearance%20quote" rel="noopener">{wa_icon()} WhatsApp</a>
+        <a class="btn btn-light btn-lg" href="tel:{p164}">{phone_icon()} Call Today</a>
+        <a class="btn btn-wa btn-lg" href="{WA_LINK}" rel="noopener">{wa_icon()} WhatsApp</a>
       </div>
-      <p class="hero-note">Free, no-obligation quotes &middot; usually the same day</p>
+      <div class="hero-proof">{google_badge()}<span class="hero-note">Free, no-obligation quotes &middot; usually the same day</span></div>
     </div>
     <div class="hero-form">
       <h2 class="hero-form-title">Get a Free Quote</h2>
@@ -209,9 +243,9 @@ def hero(h1, sub, small=False, eyebrow=None, with_form=False):
     <p class="hero-sub">{sub}</p>
     <div class="hero-ctas">
       <a class="btn btn-primary btn-lg" href="/quote/">Get a Free Quote</a>
-      <a class="btn btn-light btn-lg" href="tel:{PHONE_E164}">{phone_icon()} Call {PHONE}</a>
+      <a class="btn btn-light btn-lg" href="tel:{p164}">{phone_icon()} Call Today</a>
     </div>
-    <p class="hero-note">Free, no-obligation quotes &middot; usually the same day</p>
+    <div class="hero-proof">{google_badge()}<span class="hero-note">Free, no-obligation quotes &middot; usually the same day</span></div>
   </div>
 </section>
 {compliance_strip()}"""
@@ -248,7 +282,7 @@ def faq_schema(faqs):
 def how_it_works():
     steps = [
         ("Tell us what needs clearing",
-         "Send photos over WhatsApp, fill in the quote form, or book a free visit. You'll get a clear, fixed price — usually the same day."),
+         "Send photos or a quick video over WhatsApp, fill in the quote form, or book a free visit. You'll get a clear, fixed price — usually the same day."),
         ("We clear, you relax",
          "Our uniformed, insured team arrives at the time booked, does all the lifting and sorting, and leaves the property swept and tidy."),
         ("Paperwork done properly",
@@ -262,17 +296,24 @@ def how_it_works():
 <p class="section-intro">Three simple steps from first photo to finished clearance.</p>
 <div class="steps-grid">{cards}</div></div></section>"""
 
+TRUST_ICONS = {
+    "licence": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="15" rx="2.5"/><path d="M7 9h6M7 13h3"/><path d="m13.5 14.5 2 2 3.5-4"/></svg>',
+    "shield": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.4-3 7.6-7 9.5-4-1.9-7-5.1-7-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.7"/></svg>',
+    "recycle": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 0 1 13-5.2"/><path d="M17.5 3v4h-4"/><path d="M19.5 12a7.5 7.5 0 0 1-13 5.2"/><path d="M6.5 21v-4h4"/></svg>',
+    "tag": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 12.6 13 20.2a2 2 0 0 1-2.8 0L3.5 13.4A1.7 1.7 0 0 1 3 12.2V5a2 2 0 0 1 2-2h7.2c.4 0 .9.2 1.2.5l7.2 7.3a2 2 0 0 1 0 2.8z"/><circle cx="7.8" cy="7.8" r="1.4"/></svg>',
+}
+
 def trust_section():
     points = [
-        ("Licensed waste carrier", "Registered with the Environment Agency. Your waste is our legal responsibility from the moment we load it — and your digital waste transfer note proves it."),
-        ("Fully insured team", "Public liability insurance covers every job, and our uniformed team treats your property — and your neighbours — with respect."),
-        ("Recycling comes first", "Reusable furniture and goods are donated or resold, recyclables are recovered, and only genuine waste goes for disposal."),
-        ("Clear, honest pricing", "Fixed quotes before we start, VAT invoices on completion, and finance options available on larger clearances where helpful."),
+        ("licence", "Licensed waste carrier", "Registered with the Environment Agency. Your waste is our legal responsibility from the moment we load it — and your digital waste transfer note proves it."),
+        ("shield", "Fully insured team", "Public liability insurance covers every job, and our uniformed team treats your property — and your neighbours — with respect."),
+        ("recycle", "Recycling comes first", "Reusable furniture and goods are donated or resold, recyclables are recovered, and only genuine waste goes for disposal."),
+        ("tag", "Clear, honest pricing", "Fixed quotes before we start, VAT invoices on completion, and finance options available on larger clearances where helpful."),
     ]
-    cards = "".join(f'<div class="trust-card"><h3>{esc(t)}</h3><p>{esc(d)}</p></div>' for t, d in points)
+    cards = "".join(f'<div class="trust-card"><span class="trust-icon">{TRUST_ICONS[i]}</span><h3>{esc(t)}</h3><p>{esc(d)}</p></div>' for i, t, d in points)
     return f"""<section class="section" id="why-houseclear"><div class="wrap">
 <h2>Why people choose {BIZ_NAME}</h2>
-<p class="section-intro">A clearance company you can hand the keys to — and the paperwork to back it up. <a href="/about/">More about HouseClear and our credentials</a>.</p>
+<p class="section-intro">A clearance company you can hand the keys to — and the paperwork to back it up. From <a href="/house-clearance-chester/">house clearance in Chester</a> to <a href="/house-clearance-liverpool/">Liverpool</a>, <a href="/house-clearance-wirral/">the Wirral</a> and <a href="/house-clearance-prestatyn/">the North Wales coast</a>. <a href="/about/">More about HouseClear and our credentials</a>.</p>
 <div class="trust-grid">{cards}</div></div></section>"""
 
 def services_grid(slugs=None, title="Our clearance services", intro=None, current=None):
@@ -303,45 +344,82 @@ def areas_grid(slugs=None, title="Areas we cover", intro=None, current=None):
 # --- Testimonials -----------------------------------------------------------
 # IMPORTANT (DMCC Act 2024): the reviews below are PLACEHOLDERS for layout
 # only. Replace with genuine, verifiable customer reviews before going live.
+# Google rating — update these two numbers as the profile grows
+GOOGLE_RATING = "5.0"
+GOOGLE_REVIEW_COUNT = 27
+
+# Genuine Google reviews (verbatim; longer ones excerpted). (quote, name, context)
 TESTIMONIALS = [
-    ("They cleared my late mother's house with real care — keepsakes were set aside without us even asking, and the paperwork made probate simple.", "Steve", "Executor, Chester"),
-    ("Quoted from photos on Monday, flat cleared and swept by Wednesday. My letting agent now uses them for every void.", "Janet", "Landlord, Liverpool"),
-    ("Polite, fast and honest about what could be donated. The waste transfer note arrived by email the same evening.", "Mary", "Homeowner, Wirral"),
+    ("Really professional service from quote to how quickly and efficiently the team cleared the house on the day. The team were friendly and sensitive and cleaned up more than I expected. Highly recommended.", "Wanda Hall", "Google review"),
+    ("We needed to clear my late father-in-law's house, which was naturally a very emotional and difficult time for our family. Everyone was so patient, respectful, understanding and professional, and they made what could have been an incredibly stressful and upsetting experience so much easier for us.", "Jane Irlam", "Google review"),
+    ("Absolutely delighted to have called the crew at House Clear. 2 days from the initial call and the job was complete, photos supplied on completion. Highly recommend House Clear, professional and compassionate service.", "David Nolan", "Google review"),
+    ("Excellent professional supportive team. The flat clearance was efficiently conducted from start to finish! Highly recommended.", "Kay Sheikh", "Google review"),
+    ("Absolutely fantastic service from these guys. They have helped me with house clearances as a result of bereavement, renovations, and general waste removal from my home. Steven and the team are so friendly and do a superb job. 10/10.", "Sian Rees-Jones", "Google review"),
+    ("House Clear made emptying my Mum's house hassle free after she passed last year. Very friendly and respectful. I have no trouble recommending them to anyone.", "Pamela Lyon", "Google review"),
+    ("I have used their service twice. They are efficient, and leave the premises tidy and brushed. Anything you want to keep is set aside or notified about. They are very thorough.", "Peter O'Leary", "Google review"),
+    ("Can't fault these guys, they go above and beyond. Exceptional service from start to finish, I would highly recommend them. Top service.", "Jim Bilsland", "Google review"),
+    ("Great company to work with. Communication excellent. Great staff. Highly efficient. Good price. Arrived on time. Would highly recommend.", "Elaine Harburn", "Google review"),
+    ("House Clear did a great job with a recent house clearance for my family. Their service was efficient and professional. Highly recommend.", "Susan Smith", "Google review"),
+    ("Good company. Sorted our clearance. Took everything and left everything tidy.", "Steve Hale", "Google review"),
+    ("Excellent service, reasonably priced and helpful guys.", "Tim Braithwaite", "Google review"),
+    ("Very professional and thoughtful. Highly recommend.", "Simon Callaghan", "Google review"),
 ]
 
-def testimonials_section():
-    cards = "".join(
-        f'<figure class="review-card"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote>{esc(q)}</blockquote><figcaption><strong>{esc(n)}</strong><span>{esc(w)}</span></figcaption></figure>'
-        for q, n, w in TESTIMONIALS)
-    return f"""<!-- DMCC Act 2024: placeholder reviews below — replace with genuine reviews before launch -->
-<section class="section section-navy" id="reviews"><div class="wrap">
-<h2>What customers say</h2>
-<div class="reviews-grid">{cards}</div></div></section>"""
+def google_badge(cls="google-badge"):
+    """Visible on-page rating badge linking to the profile."""
+    return f"""<a class="{cls}" href="{GBP_URL}" rel="noopener" aria-label="Rated {GOOGLE_RATING} out of 5 from {GOOGLE_REVIEW_COUNT} Google reviews"><span class="gb-stars" aria-hidden="true">★★★★★</span><span class="gb-text"><strong>{GOOGLE_RATING}</strong> &middot; {GOOGLE_REVIEW_COUNT} Google reviews</span></a>"""
+
+def review_cards(items):
+    return "".join(
+        f'<figure class="review-card"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote>{esc(q)}</blockquote><figcaption><span class="review-avatar" aria-hidden="true">{esc(n[:1])}</span><span><strong>{esc(n)}</strong><span>{esc(w)}</span></span></figcaption></figure>'
+        for q, n, w in items)
+
+# Rotation pool: short reviews spaced out so every 3-card window has substance
+_SHORT = [t for t in TESTIMONIALS if len(t[0]) < 90]
+_LONG  = [t for t in TESTIMONIALS if len(t[0]) >= 90]
+ROTATION = []
+for _i, _t in enumerate(_LONG):
+    ROTATION.append(_t)
+    if _i % 3 == 0 and _SHORT: ROTATION.append(_SHORT.pop(0))
+ROTATION += _SHORT
+BEREAVEMENT_PICKS = [t for t in TESTIMONIALS if t[1] in ("Jane Irlam", "Pamela Lyon", "Sian Rees-Jones")]
+
+def testimonials_section(count=6, offset=0, title="What customers say", items=None):
+    if items is None:
+        pool = ROTATION[offset:] + ROTATION[:offset]
+        items = pool[:count]
+    cards = review_cards(items)
+    return f"""<section class="section section-navy" id="reviews"><div class="wrap">
+<div class="reviews-head"><h2>{esc(title)}</h2>{google_badge("google-badge google-badge-dark")}</div>
+<div class="reviews-grid">{cards}</div>
+<p class="reviews-more"><a href="{GBP_URL}" rel="noopener">Read all {GOOGLE_REVIEW_COUNT} reviews on Google &rarr;</a></p>
+</div></section>"""
 
 def cta_band(heading="Ready for a free, no-obligation quote?",
              sub="Send a few photos and we'll price your clearance today — or call and talk it through with a real person."):
+    p, p164 = cur_phone()
     return f"""<section class="cta-band">{hero_mark("hero-mark cta-mark")}<div class="wrap cta-inner">
 <div><h2>{esc(heading)}</h2><p>{esc(sub)}</p></div>
 <div class="cta-buttons">
   <a class="btn btn-primary btn-lg" href="/quote/">Get a Free Quote</a>
-  <a class="btn btn-light btn-lg" href="tel:{PHONE_E164}">{phone_icon()} Call {PHONE}</a>
-  <a class="btn btn-wa btn-lg" href="https://wa.me/{WHATSAPP}?text=Hi%20HouseClear%2C%20I%27d%20like%20a%20clearance%20quote" rel="noopener">{wa_icon()} WhatsApp Us</a>
+  <a class="btn btn-light btn-lg" href="tel:{p164}">{phone_icon()} Call Today</a>
+  <a class="btn btn-wa btn-lg" href="{WA_LINK}" rel="noopener">{wa_icon()} WhatsApp Us</a>
 </div></div></section>"""
 
 def quote_form(compact=False, prefix="qf"):
     services_opts = "".join(f'<option>{esc(s["name"])}</option>' for s in SERVICES)
     p = prefix
     return f"""
-<form name="quote" method="POST" action="/quote/thanks/" data-netlify="true" netlify-honeypot="company" class="quote-form{' quote-form-compact' if compact else ''}">
+<form name="quote" method="POST" action="/quote/thanks/" data-netlify="true" netlify-honeypot="company" toolname="request_house_clearance_quote" tooldescription="Request a free, no-obligation house clearance quote from HouseClear. Provide contact details, the property postcode, the service needed and a brief description." class="quote-form{' quote-form-compact' if compact else ''}">
   <input type="hidden" name="form-name" value="quote">
   <p class="hp-field"><label>Company <input name="company" tabindex="-1" autocomplete="off"></label></p>
   <div class="form-grid">
-    <div class="field"><label for="{p}-name">Name<span aria-hidden="true"> *</span></label><input id="{p}-name" name="name" type="text" autocomplete="name" required></div>
-    <div class="field"><label for="{p}-phone">Phone number<span aria-hidden="true"> *</span></label><input id="{p}-phone" name="phone" type="tel" autocomplete="tel" required></div>
-    <div class="field"><label for="{p}-email">Email address<span aria-hidden="true"> *</span></label><input id="{p}-email" name="email" type="email" autocomplete="email" required></div>
-    <div class="field"><label for="{p}-postcode">Property postcode<span aria-hidden="true"> *</span></label><input id="{p}-postcode" name="postcode" type="text" autocomplete="postal-code" required></div>
+    <div class="field"><label for="{p}-name">Name<span aria-hidden="true"> *</span></label><input id="{p}-name" name="name" type="text" autocomplete="name" toolparamdescription="Your full name" required></div>
+    <div class="field"><label for="{p}-phone">Phone number<span aria-hidden="true"> *</span></label><input id="{p}-phone" name="phone" type="tel" autocomplete="tel" toolparamdescription="Best contact phone number" required></div>
+    <div class="field"><label for="{p}-email">Email address<span aria-hidden="true"> *</span></label><input id="{p}-email" name="email" type="email" autocomplete="email" toolparamdescription="Email address for the quote" required></div>
+    <div class="field"><label for="{p}-postcode">Property postcode<span aria-hidden="true"> *</span></label><input id="{p}-postcode" name="postcode" type="text" autocomplete="postal-code" toolparamdescription="Postcode of the property to be cleared" required></div>
     <div class="field"><label for="{p}-service">Service required</label>
-      <select id="{p}-service" name="service"><option value="">Please choose&hellip;</option>{services_opts}<option>Something else</option></select></div>
+      <select id="{p}-service" name="service" toolparamdescription="Type of clearance required"><option value="">Please choose&hellip;</option>{services_opts}<option>Something else</option></select></div>
     <div class="field"><label for="{p}-contact">Preferred contact method</label>
       <select id="{p}-contact" name="contact_method"><option>Phone call</option><option>WhatsApp</option><option>Email</option><option>Text message</option></select></div>
     <div class="field field-full"><label for="{p}-desc">Brief description</label>
@@ -356,20 +434,33 @@ def quote_form(compact=False, prefix="qf"):
 </form>"""
 
 def quote_section():
+    p, p164 = cur_phone()
     return f"""<section class="section section-grey" id="quote"><div class="wrap quote-wrap">
 <div class="quote-copy">
   <h2>Get your free quote</h2>
-  <p>Tell us a little about the property and we'll come back with a fixed price — most quotes go back the same day. Photos help us quote fastest: send them straight over on <a href="https://wa.me/{WHATSAPP}" rel="noopener">WhatsApp</a>.</p>
+  <p>Tell us a little about the property and we'll come back with a fixed price — most quotes go back the same day. Photos help us quote fastest: send them straight over on <a href="{WA_LINK}" rel="noopener">WhatsApp</a>.</p>
   <ul class="tick-list">
     <li>Fixed price — what we quote is what you pay</li>
     <li>No obligation and no pushy follow-up calls</li>
-    <li>Prefer to talk? Call <a href="tel:{PHONE_E164}">{PHONE}</a> or <a href="https://wa.me/{WHATSAPP}" rel="noopener">WhatsApp us</a></li>
+    <li>Prefer to talk? Call <a href="tel:{p164}">{p}</a> or <a href="{WA_LINK}" rel="noopener">WhatsApp us</a></li>
   </ul>
 </div>
 {quote_form()}
 </div></section>"""
 
+def map_section():
+    embed = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d612246.6995590054!2d-2.78839975!3d53.1714193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x21ab22d71399804b%3A0xf92566d47187cc5e!2sHouseClear!5e0!3m2!1sen!2suk!4v1786368390889!5m2!1sen!2suk"
+    return f"""<section class="section section-grey map-section"><div class="wrap">
+<h2>Find HouseClear on Google</h2>
+<p class="section-intro">Serving Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral from our Deeside base.</p>
+<div class="map-panel"><iframe src="{embed}" title="HouseClear on Google Maps" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+<div class="map-actions">
+  <a class="btn btn-primary" href="{GBP_URL}" rel="noopener">View our Google profile</a>
+  <a class="btn btn-ghost" href="{GBP_URL}" rel="noopener">Leave us a review</a>
+</div></div></section>"""
+
 def footer():
+    p, p164 = cur_phone()
     svc_links = "".join(f'<li><a href="{svc_url(s["slug"])}">{esc(s["name"])}</a></li>' for s in sorted(SERVICES, key=lambda x: x["name"]))
     area_links = "".join(f'<li><a href="{loc_url(l["slug"])}">{esc(l["short"])}</a></li>' for l in sorted(LOCATIONS, key=lambda x: x["short"]))
     return f"""
@@ -378,7 +469,7 @@ def footer():
     <div class="footer-brand">
       <a href="/" class="logo logo-footer">{LOGO_SVG}<span>House<em>Clear</em></span></a>
       <p>Professional, fully compliant house clearance across Cheshire, North Wales, Liverpool and the Wirral.</p>
-      <p class="footer-contact"><a href="tel:{PHONE_E164}">{PHONE}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p>
+      <p class="footer-contact">Chester: <a href="tel:{PHONE_E164}">{PHONE}</a><br>Liverpool: <a href="tel:{PHONE2_E164}">{PHONE2}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p>
       <p class="footer-compliance">Registered waste carrier &middot; Fully insured<br>Digital waste transfer notes with every clearance</p>
     </div>
     <nav aria-label="Services"><h3>Services</h3><ul>{svc_links}</ul></nav>
@@ -392,14 +483,14 @@ def footer():
       <a href="/services/">All services</a>
       <a href="/areas/">All areas</a>
     </nav>
-    <p class="footer-legal">{BIZ_NAME} is a trading name of Tidy Up Ltd, registered in England and Wales.<br>Registered office: {REG_OFFICE}</p>
+    <p class="footer-legal">{BIZ_NAME} is a trading name of <a href="https://tidyupltd.com" rel="noopener">Tidy Up Ltd</a>, registered in England and Wales.<br>Registered office: {REG_OFFICE}</p>
     <p class="footer-reg"><span>Company No: {COMPANY_NO}</span><span>VAT No: {VAT_NO}</span><span>Waste Carrier Licence: {WASTE_LIC}</span></p>
     <p class="footer-copy">&copy; 2026 {BIZ_NAME}. All rights reserved.</p>
   </div>
 </footer>
 <div class="sticky-callbar" role="navigation" aria-label="Quick contact">
-  <a href="tel:{PHONE_E164}" class="scb-call">{phone_icon()} Call Now</a>
-  <a href="https://wa.me/{WHATSAPP}" class="scb-wa" rel="noopener">{wa_icon()} WhatsApp</a>
+  <a href="tel:{p164}" class="scb-call">{phone_icon()} Call Today</a>
+  <a href="{WA_LINK}" class="scb-wa" rel="noopener">{wa_icon()} WhatsApp</a>
   <a href="mailto:{EMAIL}" class="scb-email">{mail_icon()} Email</a>
 </div>
 <script src="/assets/site.js" defer></script>
@@ -416,11 +507,18 @@ def local_business_schema():
         "description": "Professional house clearance services across Cheshire, Flintshire, Liverpool, the Wirral and Denbighshire. HouseClear is a trading name of Tidy Up Ltd.",
         "url": DOMAIN + "/",
         "telephone": PHONE_E164,
+        "contactPoint": [
+            {"@type": "ContactPoint", "telephone": PHONE_E164, "contactType": "customer service", "areaServed": "GB", "name": "Chester"},
+            {"@type": "ContactPoint", "telephone": PHONE2_E164, "contactType": "customer service", "areaServed": "GB", "name": "Liverpool"}],
         "email": EMAIL,
         "image": DOMAIN + "/assets/og-image.jpg",
         "priceRange": "££",
         "address": {"@type": "PostalAddress", "streetAddress": "Unit 5 Catherine Court, Manor Lane", "addressLocality": "Hawarden, Deeside", "addressRegion": "Flintshire", "postalCode": "CH5 3NU", "addressCountry": "GB"},
         "vatID": "GB441151045",
+        "geo": {"@type": "GeoCoordinates", "latitude": 53.1714193, "longitude": -2.7883998},
+        "logo": DOMAIN + "/assets/icon-512.png",
+        "hasOfferCatalog": {"@type": "OfferCatalog", "name": "House clearance services",
+            "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": s["name"], "url": DOMAIN + svc_url(s["slug"])}} for s in SERVICES]},
         "areaServed": [{"@type": "AdministrativeArea", "name": n} for n in
                        ["Cheshire", "Flintshire", "Liverpool", "Wirral", "Denbighshire", "Wrexham"]],
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
@@ -431,9 +529,8 @@ def local_business_schema():
                        "Bereavement house clearance", "Hoarder house clearance",
                        "End of tenancy clearance", "Waste transfer notes",
                        "Waste carrier licensing"],
-        # TODO before launch: add Google Business Profile, Facebook, etc.
-        # e.g. "sameAs": ["https://www.facebook.com/houseclear", "https://g.page/houseclear"]
-        "sameAs": []
+        # Add Facebook / directory profiles here as they're created
+        "sameAs": [GBP_URL]
     }
 
 def service_schema(name, desc, url, area=None):
@@ -474,10 +571,10 @@ def homepage():
         f"{BIZ_NAME} provides respectful, efficient and fully compliant house clearances across Cheshire, North Wales, Liverpool and the Wirral — for homeowners, landlords, estate agents, solicitors and families dealing with probate or bereavement.",
         with_form=True)
     body += trust_section()
-    body += services_grid(intro="From single-item collections to complete property clearances — every job insured, documented and disposed of responsibly.")
+    body += services_grid(intro="From single-item collections to complete house clearances — every job insured, documented and disposed of responsibly. We handle house clearances of every kind across the region.")
     body += areas_grid(intro="Local teams covering Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral.")
     body += how_it_works()
-    body += testimonials_section()
+    body += testimonials_section(items=TESTIMONIALS[:6])
     home_faqs = [
         ("How do I get a house clearance quote?", "Send a few photos over WhatsApp, use our quote form, or book a free visit. We price by volume and confirm a fixed quote — usually the same day — with no obligation."),
         ("Are you licensed and insured?", "Yes. HouseClear is a registered waste carrier with full public liability insurance, and every clearance comes with a digital waste transfer note and a VAT invoice."),
@@ -488,6 +585,7 @@ def homepage():
     ]
     body += faq_section(home_faqs)
     body += quote_section()
+    body += map_section()
     body += cta_band()
     schemas = [
         local_business_schema(),
@@ -496,7 +594,7 @@ def homepage():
         faq_schema(home_faqs),
     ]
     URLS.append(page("/", 
-        "House Clearance Cheshire, North Wales & Wirral | HouseClear",
+        "House Clearance Chester, Cheshire & North Wales | HouseClear",
         "Professional, fully insured house clearance across Cheshire, Flintshire, Denbighshire, Liverpool & the Wirral. Licensed waste carrier. Free quotes.",
         schemas, body, active="home"))
 
@@ -530,7 +628,7 @@ def areas_hub():
         [breadcrumb_schema(trail)], body, active="areas"))
 
 def service_pages():
-    for s in SERVICES:
+    for sidx, s in enumerate(SERVICES):
         url = svc_url(s["slug"])
         trail = [("Home", "/"), ("Services", "/services/"), (s["name"], url)]
         body = breadcrumbs(trail)
@@ -550,6 +648,12 @@ def service_pages():
 <ul class="tick-list tick-list-lg">{includes}</ul>
 </div></section>"""
         body += how_it_works()
+        if s["slug"] in ("bereavement-house-clearance", "probate-house-clearance"):
+            body += testimonials_section(items=BEREAVEMENT_PICKS)
+        elif s["slug"] == "flat-clearance":
+            body += testimonials_section(items=[t for t in TESTIMONIALS if t[1] in ("Kay Sheikh", "Wanda Hall", "David Nolan")])
+        else:
+            body += testimonials_section(count=3, offset=(sidx*3) % len(ROTATION))
         body += faq_section(s["faqs"], f"{s['name']} — your questions answered")
         rel = "".join(f'<a class="area-chip" href="{svc_url(r)}">{esc(SVC[r]["name"])}</a>' for r in s["related"])
         body += f"""<section class="section"><div class="wrap"><h2>Related services</h2><div class="area-chips">{rel}</div></div></section>"""
@@ -564,13 +668,15 @@ def service_pages():
         URLS.append(page(url, s["title"], s["meta"], schemas, body, active="services"))
 
 def location_pages():
-    for l in LOCATIONS:
+    global _PHONE_OVERRIDE
+    for idx, l in enumerate(sorted(LOCATIONS, key=lambda x: x['short'])):
+        _PHONE_OVERRIDE = (PHONE2, PHONE2_E164) if l["slug"] in ("house-clearance-liverpool", "house-clearance-wirral", "house-clearance-widnes") else None
         url = loc_url(l["slug"])
         trail = [("Home", "/"), ("Areas We Cover", "/areas/"), (f"House Clearance {l['short']}", url)]
         body = breadcrumbs(trail)
         body += hero(esc(l["h1"]),
                      f"Respectful, fully compliant house clearances across {esc(l['place'])} — free quotes, usually the same day.",
-                     small=True, eyebrow=f"Local to {esc(l['short'])}")
+                     small=True, eyebrow=f"Local to {l['short']}")
         towns_sample = ", ".join(l["towns"][:4])
         body += key_facts(
             f"HouseClear provides full and partial house clearances throughout {l['place']}, including {towns_sample}, with quotes usually provided the same day.",
@@ -579,7 +685,7 @@ def location_pages():
              "Fully insured; probate, bereavement, landlord and hoarder clearances handled",
              "Reusable furniture donated to local charities where possible",
              "Fixed quotes from photos or a free, no-obligation visit"])
-        intro = "".join(f"<p>{esc(p)}</p>" for p in l["intro"])
+        intro = "".join(f"<p>{esc_keep_links(p)}</p>" for p in l["intro"])
         towns = "".join(f"<li>{esc(t)}</li>" for t in sorted(l["towns"]))
         parent = ""
         if l.get("county"):
@@ -594,15 +700,20 @@ def location_pages():
         body += services_grid(title=f"Clearance services in {l['short']}",
                               intro=f"Every HouseClear service is available in {l['short']} — these are the ones booked most often here.")
         body += how_it_works()
+        body += testimonials_section(count=3, offset=(idx*3) % len(ROTATION))
         body += faq_section(l["faqs"], f"House clearance in {l['short']} — common questions")
         rel = "".join(f'<a class="area-chip" href="{loc_url(r)}">{esc(LOC[r]["short"])}</a>' for r in l["related_locations"])
         body += f"""<section class="section"><div class="wrap"><h2>Nearby areas we cover</h2><div class="area-chips">{rel}<a class="area-chip area-chip-all" href="/areas/">All areas &rarr;</a></div></div></section>"""
+        loc_guides = ["how-much-does-a-house-clearance-cost", "what-happens-to-belongings-after-a-house-clearance", "house-clearance-vs-skip-hire", "how-to-check-a-waste-carrier-licence", "clearing-a-house-during-probate"]
+        gchips = "".join(f'<a class="area-chip" href="{guide_url(gg)}">{esc(GDE[gg]["h1"])}</a>' for gg in loc_guides)
+        body += f"""<section class="section section-grey"><div class="wrap"><h2>Helpful guides</h2><p class="section-intro">Planning a clearance in {esc(l['short'])}? These plain-English guides answer the questions we're asked most.</p><div class="area-chips">{gchips}<a class="area-chip area-chip-all" href="/guides/">All guides &rarr;</a></div></div></section>"""
         body += cta_band(f"Book your house clearance in {l['short']}",
                          f"Send photos for a same-day fixed quote, or call to talk it through — we're local to {l['short']}.")
         schemas = [service_schema(f"House Clearance {l['short']}", l["meta"], url, area=l["short"]),
                    faq_schema(l["faqs"]),
                    breadcrumb_schema(trail)]
         URLS.append(page(url, l["title"], l["meta"], schemas, body, active="areas"))
+    _PHONE_OVERRIDE = None
 
 def quote_page():
     trail = [("Home", "/"), ("Get a Quote", "/quote/")]
@@ -615,14 +726,15 @@ def quote_page():
   <h2>Three ways to get your price</h2>
   <ul class="tick-list tick-list-lg">
     <li><strong>Use the form</strong> — tell us about the property and we'll reply with a fixed quote, usually within hours.</li>
-    <li><strong>WhatsApp us</strong> — the fastest option if you have photos: send them straight from your phone to <a href="https://wa.me/{WHATSAPP}" rel="noopener">our WhatsApp</a>.</li>
-    <li><strong>Call us</strong> — talk it through on <a href="tel:{PHONE_E164}">{PHONE}</a>, Monday to Saturday, 8am–6pm.</li>
+    <li><strong>WhatsApp us</strong> — the fastest option if you have photos: send them straight from your phone to <a href="{WA_LINK}" rel="noopener">our WhatsApp</a>.</li>
+    <li><strong>Call us</strong> — Chester <a href="tel:{PHONE_E164}">{PHONE}</a> or Liverpool <a href="tel:{PHONE2_E164}">{PHONE2}</a>, Monday to Saturday, 8am–6pm.</li>
   </ul>
   <p>Every quote is fixed, itemised where helpful, and comes with our compliance credentials — waste carrier registration, insurance, and digital waste transfer notes on completion.</p>
 </div>
 {quote_form()}
 </div></section>"""
     body += trust_section()
+    body += map_section()
     URLS.append(page("/quote/",
         "Get a Free House Clearance Quote | HouseClear",
         "Get a fixed house clearance quote today. Send photos via our form or WhatsApp, or call us — covering Cheshire, North Wales, Liverpool & the Wirral.",
@@ -654,6 +766,8 @@ def about_page():
 <li><strong>Digital waste transfer notes</strong> — every clearance is documented with a digital waste transfer note, giving you legal proof of correct disposal.</li>
 <li><strong>VAT registered</strong> — VAT invoices are provided on completion (VAT No. 441151045), and can be addressed to an estate for probate accounting.</li>
 </ul>
+<h2>Part of the Tidy Up Ltd family</h2>
+<p>HouseClear is one of several trading names of <a href="https://tidyupltd.com" rel="noopener">Tidy Up Ltd</a>, a Deeside-based clearance and waste management company. For general waste removal and rubbish collection rather than a property clearance, our sister brand <a href="https://clearwaste.uk" rel="noopener">ClearWaste</a> handles that side of the business — same team, same licence, same paperwork. Whichever brand you contact, you are dealing with the same established local company.</p>
 <h2>How we handle what we clear</h2>
 <p>Every load is sorted before disposal. Reusable furniture and household goods are donated to charities local to the clearance or resold; metals, timber, cardboard and other recyclables are recovered at licensed transfer stations; only genuine waste goes for disposal. Where contents have resale value, that value is offset against your quote.</p>
 <h2>Who we work with</h2>
@@ -662,6 +776,8 @@ def about_page():
 <p>Our teams cover Chester, Ellesmere Port and Northwich across Cheshire; Mold, Buckley and Deeside in Flintshire; Rhyl, Prestatyn, Denbigh and Ruthin in Denbighshire; Wrexham and its villages; the whole of Liverpool; and the Wirral peninsula from Birkenhead to West Kirby. See our <a href="/areas/">areas page</a> for local details.</p>
 </div></section>"""
     body += trust_section()
+    body += testimonials_section(items=TESTIMONIALS[:6])
+    body += map_section()
     body += cta_band("Want our licence and insurance details?", "Ask with your quote — we supply compliance documents to every client who wants them, before any work begins.")
     schemas = [
         {"@context": "https://schema.org", "@type": "AboutPage",
@@ -682,13 +798,14 @@ def llms_txt():
     guide_lines = "\n".join(f"- [{g['h1']}]({DOMAIN}{guide_url(g['slug'])}): {g['meta']}" for g in GUIDES)
     write("/llms.txt", f"""# {BIZ_NAME}
 
-> {BIZ_NAME} is a professional house clearance company covering Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral (UK). Registered waste carrier, fully insured. Every clearance includes a digital waste transfer note and VAT invoice. Reusable items are donated, resold or recycled before disposal. Fixed quotes from photos, usually the same day. Phone: {PHONE}. Website: {DOMAIN}/
+> {BIZ_NAME} is a professional house clearance company covering Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral (UK). Registered waste carrier, fully insured. Every clearance includes a digital waste transfer note and VAT invoice. Reusable items are donated, resold or recycled before disposal. Fixed quotes from photos, usually the same day. Phone: {PHONE} (Chester) or {PHONE2} (Liverpool). Website: {DOMAIN}/
 
 Key facts:
 - Services: full and partial house clearance, probate and bereavement clearance, hoarder clearance, garage, loft and flat clearance, end of tenancy clearance
 - Clients: homeowners, landlords, letting and estate agents, solicitors, executors, housing providers
 - Compliance: Environment Agency registered waste carrier (England & Wales), public liability insured, digital waste transfer notes, VAT invoices; finance available on larger clearances
 - Coverage: Chester, Ellesmere Port, Northwich, Mold, Buckley, Deeside, Wrexham, Rhyl, Prestatyn, Denbigh, Ruthin, Liverpool, Birkenhead, Wallasey, Heswall, West Kirby and surrounding areas
+- Google Business Profile: {GBP_URL}
 - Legal entity: HouseClear is a trading name of Tidy Up Ltd (Company No. 14294404, registered office Hawarden, Deeside CH5 3NU); Environment Agency waste carrier registration CBDU464597
 
 ## Services
@@ -716,6 +833,7 @@ def article_schema(g):
             "headline": g["h1"], "description": g["meta"],
             "url": DOMAIN + guide_url(g["slug"]),
             "datePublished": g["date"], "dateModified": g["date"],
+            "image": [DOMAIN + "/assets/og-image.jpg"],
             "author": {"@type": "Organization", "name": BIZ_NAME, "url": DOMAIN + "/"},
             "publisher": {"@id": DOMAIN + "/#business"}}
 
@@ -763,9 +881,7 @@ def guide_pages():
 def sitemap_and_robots():
     urls = "".join(f"<url><loc>{DOMAIN}{u}</loc></url>" for u in URLS)
     write("/sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')
-    ai_bots = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-User",
-               "Claude-SearchBot", "PerplexityBot", "Perplexity-User", "Google-Extended",
-               "Applebot-Extended", "Bingbot", "CCBot", "meta-externalagent"]
+    ai_bots = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-User", "Claude-SearchBot", "PerplexityBot", "Perplexity-User", "Google-Extended", "Applebot-Extended", "Bingbot", "CCBot", "meta-externalagent", "Claude-Web", "anthropic-ai", "Amazonbot", "Bytespider"]
     ai_rules = "\n\n".join(f"User-agent: {b}\nAllow: /" for b in ai_bots)
     write("/robots.txt", f"""# Standard crawlers
 User-agent: *
@@ -784,7 +900,7 @@ def assets():
     shutil.copy(os.path.join(os.path.dirname(__file__), "styles.css"), os.path.join(OUT, "assets/styles.css"))
     shutil.copy(os.path.join(os.path.dirname(__file__), "site.js"), os.path.join(OUT, "assets/site.js"))
     brand = os.path.join(os.path.dirname(__file__), "brand")
-    for f in ["favicon.svg", "favicon.ico", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "og-image.jpg"]:
+    for f in ["favicon.svg", "favicon.ico", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "og-image.jpg", "hero.webp", "hero-mobile.webp"]:
         shutil.copy(os.path.join(brand, f), os.path.join(OUT, "assets", f))
 
 if __name__ == "__main__":

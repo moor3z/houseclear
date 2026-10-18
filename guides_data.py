@@ -2,7 +2,7 @@
 # (so they can carry contextual links to service and location pages).
 GUIDE_CLUSTERS = [
     ("Compliance & paperwork", ["what-is-a-waste-transfer-note", "how-to-check-a-waste-carrier-licence"]),
-    ("Probate & bereavement", ["clearing-a-house-during-probate", "what-happens-to-belongings-after-a-house-clearance"]),
+    ("Probate & bereavement", ["clearing-a-house-during-probate", "house-clearance-checklist-for-executors", "what-happens-to-belongings-after-a-house-clearance"]),
     ("Planning & costs", ["how-much-does-a-house-clearance-cost", "house-clearance-vs-skip-hire"]),
 ]
 
@@ -126,6 +126,7 @@ GUIDES = [
 ]),
 ],
 "faqs": [
+ ("What happens to belongings after a house clearance?", "Reusable furniture, kitchenware, books and clothing are donated to charities or rehomed through resale; recyclable materials — metals, timber, cardboard, textiles and electricals — are separated at licensed transfer stations; and only what is left goes for disposal, recorded on a digital waste transfer note. Keepsakes, documents and valuables are set aside and returned to the family before anything leaves the property."),
  ("Can I ask for items to go to a specific charity?", "Yes — tell us when you book. Where the charity accepts the items and collection logistics allow, we'll direct donatable goods there and let you know what went."),
  ("Do you sell items you clear?", "Where contents have resale value, yes — and that value is offset against your quote and shown on your paperwork, which is particularly useful for estates. Nothing is quietly skimmed; the credit is itemised."),
  ("What genuinely can't be reused or recycled?", "Soiled soft furnishings, furniture without fire labels in poor condition, broken particleboard items and general accumulated waste typically can't be rehomed. They're disposed of at licensed facilities, documented on your waste transfer note."),
@@ -198,5 +199,44 @@ GUIDES = [
  ("Is it true skips can't take certain items?", "Yes — fridges, freezers, mattresses, paint, tyres and electricals are commonly banned or surcharged in skips because they need separate disposal routes. A clearance company handles those routes as part of the job."),
 ],
 "related_services": ["partial-house-clearance", "garage-clearance", "loft-clearance"],
+},
+{
+"slug": "house-clearance-checklist-for-executors",
+"cluster": "Probate & bereavement",
+"title": "House Clearance Checklist for Executors | HouseClear",
+"meta": "A step-by-step checklist for executors arranging a house clearance — before, during and after, from valuables and paperwork to the waste transfer note.",
+"h1": "House clearance checklist for executors",
+"lead": "Everything to tick off before, during and after clearing an estate property — in the order that keeps you covered.",
+"date": "2026-08-26",
+"body": [
+("", [
+ "Clearing the property is one of the most practical jobs an executor faces, and one of the easiest to get slightly wrong — clearing too early, missing documents, or leaving the estate without the paperwork it needs. This checklist puts the steps in the right order. It pairs with our fuller guide to <a href=\"/guides/clearing-a-house-during-probate/\">clearing a house during probate</a>, which covers the timing rules in more depth.",
+]),
+("Before you book anything", [
+ "<strong>Confirm your authority to act.</strong> Generally the contents should not be cleared until you have authority to deal with the estate — a quick confirmation with the solicitor settles when you can proceed. Quoting and pencilling a date in advance is fine; clearing before you have authority is the mistake to avoid.",
+ "<strong>Check the insurance.</strong> Unoccupied properties usually need specialist cover, and insurers like to see the property actively managed. A scheduled, documented clearance supports exactly that.",
+ "<strong>Have the contents valued if needed.</strong> Household goods form part of the estate's value, and anything notable — jewellery, art, antiques, vehicles — should be valued before disposal. Flag these to the solicitor first.",
+ "<strong>Do the family walk-through.</strong> Before any clearance, give family members the chance to identify keepsakes they want. Photograph rooms as a record — it prevents disagreements later and takes ten minutes.",
+]),
+("Choosing the clearance company", [
+ "<strong>Verify the waste carrier licence</strong> on the public register — it takes under a minute and protects the estate from fly-tipping liability (our guide to <a href=\"/guides/how-to-check-a-waste-carrier-licence/\">checking a waste carrier licence</a> shows exactly how). <strong>Get a fixed, written quote</strong> priced by volume, not an hourly rate — see <a href=\"/guides/how-much-does-a-house-clearance-cost/\">how clearance pricing works</a>. <strong>Ask about contents offset:</strong> where furniture has resale value, a good firm credits it against the price, itemised — which keeps the estate accounts clean. And <strong>ask for the invoice to be addressed to the estate</strong> if the solicitor prefers.",
+]),
+("On clearance day", [
+ "<strong>Brief the team on what stays.</strong> Anything staying with the property — carpets, curtains, appliances included in the sale — should be agreed in writing beforehand.",
+ "<strong>Documents and valuables set aside.</strong> A reputable team will do this as standard: wills, certificates, premium bonds, photographs, jewellery and cash all go back to the executor, never into the load. This is a formal part of our <a href=\"/services/probate-house-clearance/\">probate house clearance</a> service.",
+ "<strong>Meters and keys.</strong> Photograph meter readings once the property is empty, and confirm how keys are returned — to you, the agent or the solicitor.",
+]),
+("After the clearance — what the estate file should hold", [
+ "Keep the written quote, the final invoice (addressed to the estate where preferred), the itemised credit for any resaleable contents, and the <a href=\"/guides/what-is-a-waste-transfer-note/\">digital waste transfer note</a>. Together they give you a complete, defensible record of how the contents were dealt with — exactly what a solicitor or co-beneficiary may later ask to see.",
+ "If the property will sit empty afterwards, tell the insurer it has been cleared, keep the heating managed in winter, and arrange periodic checks — an empty, cleared house is easier to insure and easier to sell.",
+]),
+],
+"faqs": [
+ ("Can I clear the house myself instead of using a company?", "You can, though executors often underestimate the time and the disposal rules — household waste from an estate still falls under the duty of care, and tip restrictions on van loads catch people out. If you do it yourself, keep receipts and records; if you use a company, verify their licence and keep the waste transfer note."),
+ ("What if the family disagrees about items in the house?", "Pause on the disputed items and clear around them. A photographed walk-through before the clearance, and keepsakes set aside rather than removed, prevents most disputes — and anything contested can be stored or left in place until the family agrees."),
+ ("Should the clearance invoice be in my name or the estate's?", "Either works, but invoices addressed to the estate keep the accounts cleaner and make it simpler to reclaim the cost as an estate expense. Tell the clearance company when you book — we address invoices to the estate routinely."),
+ ("How long does an estate clearance take?", "Most cleared within a day; larger or heavily furnished properties may take two. The practical timeline is usually set by the paperwork before it — authority to act and any valuation — rather than the clearance itself."),
+],
+"related_services": ["probate-house-clearance", "bereavement-house-clearance", "full-house-clearance"],
 },
 ]

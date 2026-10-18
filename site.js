@@ -31,23 +31,39 @@
     });
   });
 
-  // --- Conversion tracking (GA4 via dataLayer; no PII is pushed) ---
+  // --- Conversion tracking: works with GA4 directly (gtag) AND with Tag Manager (dataLayer) ---
   window.dataLayer = window.dataLayer || [];
+  function track(name, params) {
+    params = params || {};
+    if (typeof window.gtag === 'function') { window.gtag('event', name, params); }
+    var payload = { event: name }; for (var k in params) payload[k] = params[k];
+    window.dataLayer.push(payload);
+  }
   // Quote form submissions land on the thanks page: fire generate_lead there.
   if (location.pathname.indexOf('/quote/thanks') === 0) {
-    window.dataLayer.push({ event: 'generate_lead', lead_source: 'quote_form' });
+    track('generate_lead', { lead_source: 'quote_form' });
   }
-  // Click-to-contact events
+  // Click-to-contact events (no PII)
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a');
     if (!a) return;
     var href = a.getAttribute('href') || '';
-    if (href.indexOf('tel:') === 0) {
-      window.dataLayer.push({ event: 'phone_click', link_location: a.className || 'inline' });
-    } else if (href.indexOf('wa.me') !== -1) {
-      window.dataLayer.push({ event: 'whatsapp_click', link_location: a.className || 'inline' });
-    } else if (href.indexOf('mailto:') === 0) {
-      window.dataLayer.push({ event: 'email_click', link_location: a.className || 'inline' });
-    }
+    var loc = a.className || 'inline';
+    if (href.indexOf('tel:') === 0)             { track('phone_click',    { link_location: loc }); }
+    else if (href.indexOf('wa.me') !== -1)      { track('whatsapp_click', { link_location: loc }); }
+    else if (href.indexOf('mailto:') === 0)     { track('email_click',    { link_location: loc }); }
   });
+
+  // Scroll-reveal: fade cards up as they enter the viewport
+  if ('IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var targets = document.querySelectorAll(
+      '.trust-card, .svc-card, .step-card, .review-card, .area-chips-even .area-chip');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    targets.forEach(function (t) { t.classList.add('reveal'); io.observe(t); });
+  }
 })();

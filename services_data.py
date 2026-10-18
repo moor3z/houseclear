@@ -64,8 +64,8 @@ SERVICES = [
 "slug": "bereavement-house-clearance",
 "name": "Bereavement House Clearance",
 "nav": "Bereavement Clearance",
-"title": "Bereavement House Clearance | Respectful Team | HouseClear",
-"meta": "Respectful bereavement house clearance across Cheshire, North Wales, Liverpool & the Wirral. A patient, discreet team that works at your pace.",
+"title": "Bereavement House Clearance Cheshire & N. Wales | HouseClear",
+"meta": "Respectful bereavement house clearance across Chester, Cheshire, North Wales, Liverpool & the Wirral. A patient, discreet local team. Free quotes.",
 "h1": "Bereavement House Clearance",
 "lead": "Clearing a loved one's home is never easy. Our team works patiently, discreetly and entirely at your pace.",
 "intro": [
@@ -274,8 +274,8 @@ SERVICES = [
 "slug": "end-of-tenancy-clearance",
 "name": "End of Tenancy Clearance",
 "nav": "End of Tenancy",
-"title": "End of Tenancy Clearance | Landlords & Agents | HouseClear",
-"meta": "End of tenancy clearance for landlords, letting agents and tenants. Abandoned items removed fast, with full waste documentation for your records.",
+"title": "End of Tenancy Clearance Cheshire & N. Wales | HouseClear",
+"meta": "End of tenancy clearance for landlords and agents across Chester, Cheshire, North Wales & Merseyside. Fast turnarounds, full waste paperwork.",
 "h1": "End of Tenancy Clearance",
 "lead": "Fast turnarounds for landlords, letting agents and tenants — with the waste paperwork your records need.",
 "intro": [
