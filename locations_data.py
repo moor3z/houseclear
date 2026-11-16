@@ -5,7 +5,7 @@ LOCATIONS = [
 "place": "Cheshire",
 "short": "Cheshire",
 "county": None,
-"title": "House Clearance Cheshire | 5★ Rated | HouseClear",
+"title": "House Clearance Cheshire | Free Quotes | HouseClear",
 "meta": "House clearance across Cheshire — Chester, Northwich, Knutsford, Wilmslow, Macclesfield, Crewe & Warrington. Licensed, insured, free quotes.",
 "h1": "House Clearance in Cheshire",
 "intro": [
@@ -30,7 +30,7 @@ LOCATIONS = [
 "place": "Chester",
 "short": "Chester",
 "county": "house-clearance-cheshire",
-"title": "House Clearance Chester | 5★ Rated | HouseClear",
+"title": "House Clearance Chester | Free Quotes | HouseClear",
 "meta": "House clearance in Chester — Hoole, Handbridge, Upton, Blacon, Boughton & city centre. Respectful local team, licensed waste carrier, free same-day quotes.",
 "h1": "House Clearance in Chester",
 "intro": [
@@ -55,7 +55,7 @@ LOCATIONS = [
 "place": "Flintshire",
 "short": "Flintshire",
 "county": "house-clearance-north-wales",
-"title": "House Clearance Flintshire | 5★ Rated | HouseClear",
+"title": "House Clearance Flintshire | Free Quotes | HouseClear",
 "meta": "House clearance across Flintshire — Mold, Buckley, Flint, Connah's Quay, Shotton & Deeside. Respectful local team, licensed carrier, free quotes.",
 "h1": "House Clearance in Flintshire",
 "intro": [
@@ -80,7 +80,7 @@ LOCATIONS = [
 "place": "Liverpool",
 "short": "Liverpool",
 "county": None,
-"title": "House Clearance Liverpool | 5★ Rated | HouseClear",
+"title": "House Clearance Liverpool | Free Quotes | HouseClear",
 "meta": "House clearance across Liverpool — Aigburth, Allerton, Anfield, Wavertree, Woolton & the city centre. Fast, insured, licensed. Free quotes.",
 "h1": "House Clearance in Liverpool",
 "intro": [
@@ -105,7 +105,7 @@ LOCATIONS = [
 "place": "the Wirral",
 "short": "Wirral",
 "county": None,
-"title": "House Clearance Wirral | 5★ Rated | HouseClear",
+"title": "House Clearance Wirral | Free Quotes | HouseClear",
 "meta": "House clearance across the Wirral — Birkenhead, Wallasey, Bebington, Heswall, West Kirby, Hoylake & Moreton. Respectful, insured, licensed. Free quotes.",
 "h1": "House Clearance on the Wirral",
 "intro": [
@@ -130,7 +130,7 @@ LOCATIONS = [
 "place": "Denbighshire",
 "short": "Denbighshire",
 "county": "house-clearance-north-wales",
-"title": "House Clearance Denbighshire | 5★ Rated | HouseClear",
+"title": "House Clearance Denbighshire | Free Quotes | HouseClear",
 "meta": "House clearance across Denbighshire — Rhyl, Prestatyn, Denbigh, Ruthin, St Asaph & the Vale of Clwyd. Respectful team, licensed waste carrier, free quotes.",
 "h1": "House Clearance in Denbighshire",
 "intro": [
@@ -156,7 +156,7 @@ LOCATIONS = [
 "place": "Wrexham",
 "short": "Wrexham",
 "county": "house-clearance-north-wales",
-"title": "House Clearance Wrexham | 5★ Rated | HouseClear",
+"title": "House Clearance Wrexham | Free Quotes | HouseClear",
 "meta": "House clearance in Wrexham and surrounding villages — Rhosllanerchrugog, Gresford, Chirk, Coedpoeth & more. Respectful, insured, licensed. Free quotes.",
 "h1": "House Clearance in Wrexham",
 "intro": [
@@ -182,7 +182,7 @@ LOCATIONS = [
 "place": "Ellesmere Port",
 "short": "Ellesmere Port",
 "county": "house-clearance-cheshire",
-"title": "House Clearance Ellesmere Port | 5★ Rated | HouseClear",
+"title": "House Clearance Ellesmere Port | Free Quotes | HouseClear",
 "meta": "House clearance in Ellesmere Port — Whitby, Great Sutton, Little Sutton, Hooton & Overpool. Fast local service, licensed waste carrier, free quotes.",
 "h1": "House Clearance in Ellesmere Port",
 "intro": [
@@ -207,7 +207,7 @@ LOCATIONS = [
 "place": "Northwich",
 "short": "Northwich",
 "county": "house-clearance-cheshire",
-"title": "House Clearance Northwich | 5★ Rated | HouseClear",
+"title": "House Clearance Northwich | Free Quotes | HouseClear",
 "meta": "House clearance in Northwich — Hartford, Davenham, Barnton, Weaverham & the surrounding villages. Respectful local team, free quotes. Rated 5.0★ on Google.",
 "h1": "House Clearance in Northwich",
 "intro": [
@@ -232,7 +232,7 @@ LOCATIONS = [
 "place": "Mold",
 "short": "Mold",
 "county": "house-clearance-flintshire",
-"title": "House Clearance Mold | 5★ Rated | HouseClear",
+"title": "House Clearance Mold | Free Quotes | HouseClear",
 "meta": "House clearance in Mold and surrounding villages — Mynydd Isa, Northop, Gwernaffield & more. Respectful local team, licensed carrier, free quotes.",
 "h1": "House Clearance in Mold",
 "intro": [
@@ -257,7 +257,7 @@ LOCATIONS = [
 "place": "Rhyl",
 "short": "Rhyl",
 "county": "house-clearance-denbighshire",
-"title": "House Clearance Rhyl | 5★ Rated | HouseClear",
+"title": "House Clearance Rhyl | Free Quotes | HouseClear",
 "meta": "House clearance in Rhyl — seafront flats, terraces, bungalows & HMOs. Fast, respectful service for families, landlords and agents. Free quotes.",
 "h1": "House Clearance in Rhyl",
 "intro": [
@@ -282,7 +282,7 @@ LOCATIONS = [
 "place": "Prestatyn",
 "short": "Prestatyn",
 "county": "house-clearance-denbighshire",
-"title": "House Clearance Prestatyn | 5★ Rated | HouseClear",
+"title": "House Clearance Prestatyn | Free Quotes | HouseClear",
 "meta": "House clearance in Prestatyn — bungalows, family homes, flats & holiday lets. Respectful service for downsizing, probate & bereavement. Free quotes.",
 "h1": "House Clearance in Prestatyn",
 "intro": [
@@ -308,7 +308,7 @@ LOCATIONS = [
 "place": "Buckley",
 "short": "Buckley",
 "county": "house-clearance-flintshire",
-"title": "House Clearance Buckley | 5★ Rated | HouseClear",
+"title": "House Clearance Buckley | Free Quotes | HouseClear",
 "meta": "House clearance in Buckley — Mynydd Isa, Drury, Alltami, Ewloe & surrounding villages. Local Deeside-based team, licensed carrier, free quotes.",
 "h1": "House Clearance in Buckley",
 "intro": [
@@ -333,7 +333,7 @@ LOCATIONS = [
 "place": "Crewe",
 "short": "Crewe",
 "county": "house-clearance-cheshire",
-"title": "House Clearance Crewe | 5★ Rated | HouseClear",
+"title": "House Clearance Crewe | Free Quotes | HouseClear",
 "meta": "House clearance in Crewe — railway-quarter terraces, family homes & estates, plus Nantwich, Sandbach, Haslington & Wistaston. Licensed, insured, free quotes.",
 "h1": "House Clearance in Crewe",
 "intro": [
@@ -358,7 +358,7 @@ LOCATIONS = [
 "place": "Knutsford",
 "short": "Knutsford",
 "county": "house-clearance-cheshire",
-"title": "House Clearance Knutsford | 5★ Rated | HouseClear",
+"title": "House Clearance Knutsford | Free Quotes | HouseClear",
 "meta": "House clearance in Knutsford — period townhouses, cottages & larger homes, plus Mobberley, Plumley & Mere. Discreet, insured, licensed. Free quotes.",
 "h1": "House Clearance in Knutsford",
 "intro": [
@@ -383,7 +383,7 @@ LOCATIONS = [
 "place": "Wilmslow",
 "short": "Wilmslow",
 "county": "house-clearance-cheshire",
-"title": "House Clearance Wilmslow | 5★ Rated | HouseClear",
+"title": "House Clearance Wilmslow | Free Quotes | HouseClear",
 "meta": "House clearance in Wilmslow, Alderley Edge, Handforth & Styal — larger homes cleared discreetly, contents valued honestly. Insured, licensed, free quotes.",
 "h1": "House Clearance in Wilmslow",
 "intro": [
@@ -408,7 +408,7 @@ LOCATIONS = [
 "place": "North Wales",
 "short": "North Wales",
 "county": None,
-"title": "House Clearance North Wales | 5★ Rated | HouseClear",
+"title": "House Clearance North Wales | Free Quotes | HouseClear",
 "meta": "House clearances across North Wales — Flintshire, Denbighshire & Wrexham, from Deeside and Mold to Rhyl, Prestatyn and Ruthin. Licensed for Wales. Free quotes.",
 "h1": "House Clearance in North Wales",
 "intro": [
@@ -433,7 +433,7 @@ LOCATIONS = [
 "place": "Widnes and Runcorn",
 "short": "Widnes & Runcorn",
 "county": "house-clearance-cheshire",
-"title": "House Clearance Widnes & Runcorn | 5★ Rated | HouseClear",
+"title": "House Clearance Widnes & Runcorn | Free Quotes | HouseClear",
 "meta": "House clearance in Widnes and Runcorn — terraces, family homes and estates across Halton, plus Hale, Cronton and Sandymoor. Licensed, insured, free quotes.",
 "h1": "House Clearance in Widnes & Runcorn",
 "intro": [
@@ -463,7 +463,7 @@ LOCATIONS = [
 "place": "Warrington",
 "short": "Warrington",
 "county": "house-clearance-cheshire",
-"title": "House Clearance Warrington | 5★ Rated | HouseClear",
+"title": "House Clearance Warrington | Free Quotes | HouseClear",
 "meta": "House clearance in Warrington — Stockton Heath, Grappenhall, Great Sankey, Birchwood, Lymm & Culcheth. Licensed, insured local team. Rated 5.0★ on Google.",
 "h1": "House Clearance in Warrington",
 "intro": [
