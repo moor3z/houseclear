@@ -14,8 +14,10 @@ from guides_data import GUIDES, GUIDE_CLUSTERS
 DOMAIN   = "https://houseclear.uk"                  # live domain (Cloudflare)
 PHONE      = "01244 722 330"        # HouseClear line (default sitewide)
 PHONE_E164 = "+441244722330"
-PHONE2     = "0151 440 3704"        # Liverpool/Merseyside (used on Liverpool & Wirral pages)
-PHONE2_E164 = "+441514403704"
+# 0151 440 3704 is Tidy Up Ltd's number and is no longer shown on HouseClear.
+# Aliased to the HouseClear line so any leftover reference stays correct.
+PHONE2      = PHONE
+PHONE2_E164 = PHONE_E164
 WA_LINK  = "https://wa.me/message/R42OUVB7Q6DHE1"   # WhatsApp Business link
 GBP_URL  = "https://maps.app.goo.gl/ENYvPdr3JCx8Pux27"  # Google Business Profile
 EMAIL    = "steven@tidyupltd.com"
@@ -472,7 +474,7 @@ def footer():
     <div class="footer-brand">
       <a href="/" class="logo logo-footer">{LOGO_SVG}<span>House<em>Clear</em></span></a>
       <p>Professional, fully compliant house clearance across Cheshire, North Wales, Liverpool and the Wirral.</p>
-      <p class="footer-contact">Chester: <a href="tel:{PHONE_E164}">{PHONE}</a><br>Liverpool: <a href="tel:{PHONE2_E164}">{PHONE2}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p>
+      <p class="footer-contact">Call: <a href="tel:{PHONE_E164}">{PHONE}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p>
       <p class="footer-compliance">Registered waste carrier &middot; Fully insured<br>Digital waste transfer notes with every clearance</p>
     </div>
     <nav aria-label="Services"><h3>Services</h3><ul>{svc_links}</ul></nav>
@@ -511,8 +513,7 @@ def local_business_schema():
         "url": DOMAIN + "/",
         "telephone": PHONE_E164,
         "contactPoint": [
-            {"@type": "ContactPoint", "telephone": PHONE_E164, "contactType": "customer service", "areaServed": "GB", "name": "Chester"},
-            {"@type": "ContactPoint", "telephone": PHONE2_E164, "contactType": "customer service", "areaServed": "GB", "name": "Liverpool"}],
+            {"@type": "ContactPoint", "telephone": PHONE_E164, "contactType": "customer service", "areaServed": "GB"}],
         "email": EMAIL,
         "image": DOMAIN + "/assets/og-image.jpg",
         "priceRange": f"From {PRICE_FROM} inc. VAT",
@@ -690,7 +691,7 @@ def service_pages():
 def location_pages():
     global _PHONE_OVERRIDE
     for idx, l in enumerate(sorted(LOCATIONS, key=lambda x: x['short'])):
-        _PHONE_OVERRIDE = (PHONE2, PHONE2_E164) if l["slug"] in ("house-clearance-liverpool", "house-clearance-wirral", "house-clearance-widnes") else None
+        _PHONE_OVERRIDE = None  # one HouseClear number on every page
         url = loc_url(l["slug"])
         trail = [("Home", "/"), ("Areas We Cover", "/areas/"), (f"House Clearance {l['short']}", url)]
         body = breadcrumbs(trail)
@@ -749,7 +750,7 @@ def quote_page():
   <ul class="tick-list tick-list-lg">
     <li><strong>Use the form</strong> — tell us about the property and we'll reply with a fixed quote, usually within hours.</li>
     <li><strong>WhatsApp us</strong> — the fastest option if you have photos: send them straight from your phone to <a href="{WA_LINK}" rel="noopener">our WhatsApp</a>. Or <a href="/quote/video/">send a video for a quote</a> without a visit.</li>
-    <li><strong>Call us</strong> — Chester <a href="tel:{PHONE_E164}">{PHONE}</a> or Liverpool <a href="tel:{PHONE2_E164}">{PHONE2}</a>, Monday to Saturday, 8am–6pm.</li>
+    <li><strong>Call us</strong> on <a href="tel:{PHONE_E164}">{PHONE}</a>, Monday to Saturday, 8am–6pm.</li>
   </ul>
   <p>Every quote is fixed, itemised where helpful, and comes with our compliance credentials — waste carrier registration, insurance, and digital waste transfer notes on completion.</p>
 </div>
@@ -876,7 +877,7 @@ def llms_txt():
     guide_lines = "\n".join(f"- [{g['h1']}]({DOMAIN}{guide_url(g['slug'])}): {g['meta']}" for g in GUIDES)
     write("/llms.txt", f"""# {BIZ_NAME}
 
-> {BIZ_NAME} is a professional house clearance company covering Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral (UK). Registered waste carrier, fully insured. Every clearance includes a digital waste transfer note and VAT invoice. Reusable items are donated, resold or recycled before disposal. House clearances start at {PRICE_FROM} including VAT ({PRICE_FROM_NET}); fixed quotes from photos or video, usually the same day. Phone: {PHONE} (Chester) or {PHONE2} (Liverpool). Website: {DOMAIN}/
+> {BIZ_NAME} is a professional house clearance company covering Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral (UK). Registered waste carrier, fully insured. Every clearance includes a digital waste transfer note and VAT invoice. Reusable items are donated, resold or recycled before disposal. House clearances start at {PRICE_FROM} including VAT ({PRICE_FROM_NET}); fixed quotes from photos or video, usually the same day. Phone: {PHONE}. Website: {DOMAIN}/
 
 Key facts:
 - Services: full and partial house clearance, probate and bereavement clearance, hoarder clearance, garage, loft and flat clearance, end of tenancy clearance
