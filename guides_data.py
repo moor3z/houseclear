@@ -2,8 +2,9 @@
 # (so they can carry contextual links to service and location pages).
 GUIDE_CLUSTERS = [
     ("Compliance & paperwork", ["what-is-a-waste-transfer-note", "how-to-check-a-waste-carrier-licence"]),
-    ("Probate & bereavement", ["clearing-a-house-during-probate", "house-clearance-checklist-for-executors", "what-happens-to-belongings-after-a-house-clearance"]),
-    ("Planning & costs", ["how-much-does-a-house-clearance-cost", "house-clearance-vs-skip-hire"]),
+    ("Probate & bereavement", ["clearing-a-house-during-probate", "clearing-a-house-after-a-death", "house-clearance-checklist-for-executors", "what-happens-to-belongings-after-a-house-clearance"]),
+    ("Planning & costs", ["how-much-does-a-house-clearance-cost", "how-to-prepare-for-a-house-clearance", "do-i-need-to-be-there-for-a-house-clearance", "house-clearance-vs-skip-hire"]),
+    ("Specialist clearances", ["how-to-help-clear-a-hoarders-home"]),
 ]
 
 GUIDES = [
@@ -248,3 +249,6 @@ GUIDES = [
 "related_services": ["probate-house-clearance", "bereavement-house-clearance", "full-house-clearance"],
 },
 ]
+
+from guides_extra import EXTRA_GUIDES
+GUIDES += EXTRA_GUIDES
