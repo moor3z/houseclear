@@ -358,7 +358,7 @@ def areas_grid(slugs=None, title="Areas we cover", intro=None, current=None):
 # only. Replace with genuine, verifiable customer reviews before going live.
 # Google rating — update these two numbers as the profile grows
 GOOGLE_RATING = "5.0"
-GOOGLE_REVIEW_COUNT = 27
+GOOGLE_REVIEW_COUNT = 28
 
 # Genuine Google reviews (verbatim; longer ones excerpted). (quote, name, context)
 TESTIMONIALS = [
