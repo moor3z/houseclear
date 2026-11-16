@@ -3,6 +3,13 @@
 .steps-list{margin:0 0 20px 1.2em;padding:0}
 .steps-list li{margin-bottom:12px;padding-left:4px}
 .steps-more{margin-top:24px;text-align:center;font-weight:600}
+.quote-form-col{min-width:0}
+.footer-reg a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.form-proof{margin-top:14px;padding:12px 14px;border-radius:12px;background:#f4f8fb;border:1px solid #e3e8ee;font-size:.9rem;color:#334155}
+.form-proof .fp-rating{display:flex;align-items:center;gap:6px;color:#0A2540;text-decoration:none;font-weight:600}
+.form-proof .gb-stars{color:#FBBC04;letter-spacing:1px}
+.form-proof blockquote{margin:6px 0 0;font-style:italic;line-height:1.45}
+.form-proof cite{font-style:normal;font-weight:600;color:#0A2540;white-space:nowrap}
 .byline{font-size:.92rem;color:#5b6b7d;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid #e3e8ee}
 
 /* --------------- metric-matched font fallbacks (CLS guard) -- */

@@ -152,6 +152,7 @@ LOCATIONS = [
 },
 {
 "slug": "house-clearance-wrexham",
+"nearby": 'Wrexham is part of our <a href="/house-clearance-north-wales/">North Wales house clearance</a> service, alongside nearby <a href="/house-clearance-flintshire/">Flintshire</a> towns such as <a href="/house-clearance-mold/">Mold</a> and <a href="/house-clearance-buckley/">Buckley</a>.',
 "place": "Wrexham",
 "short": "Wrexham",
 "county": "house-clearance-north-wales",
@@ -177,6 +178,7 @@ LOCATIONS = [
 },
 {
 "slug": "house-clearance-ellesmere-port",
+"nearby": 'Ellesmere Port sits between our Chester and Wirral work. See <a href="/house-clearance-chester/">house clearance in Chester</a>, <a href="/house-clearance-wirral/">house clearance on the Wirral</a> and our wider <a href="/house-clearance-cheshire/">Cheshire house clearance</a> service.',
 "place": "Ellesmere Port",
 "short": "Ellesmere Port",
 "county": "house-clearance-cheshire",
@@ -226,6 +228,7 @@ LOCATIONS = [
 },
 {
 "slug": "house-clearance-mold",
+"nearby": 'Mold is part of our <a href="/house-clearance-flintshire/">Flintshire house clearance</a> service and our wider <a href="/house-clearance-north-wales/">North Wales</a> coverage, with nearby <a href="/house-clearance-buckley/">Buckley</a> and <a href="/house-clearance-wrexham/">Wrexham</a> covered too.',
 "place": "Mold",
 "short": "Mold",
 "county": "house-clearance-flintshire",
@@ -250,6 +253,7 @@ LOCATIONS = [
 },
 {
 "slug": "house-clearance-rhyl",
+"nearby": 'Rhyl is part of our <a href="/house-clearance-north-wales/">North Wales house clearance</a> service, alongside neighbouring <a href="/house-clearance-prestatyn/">Prestatyn</a> and the rest of <a href="/house-clearance-denbighshire/">Denbighshire</a>.',
 "place": "Rhyl",
 "short": "Rhyl",
 "county": "house-clearance-denbighshire",
@@ -274,6 +278,7 @@ LOCATIONS = [
 },
 {
 "slug": "house-clearance-prestatyn",
+"nearby": 'Prestatyn is part of our <a href="/house-clearance-north-wales/">North Wales house clearance</a> service. We also clear homes along the coast in <a href="/house-clearance-rhyl/">Rhyl</a> and across <a href="/house-clearance-denbighshire/">Denbighshire</a>.',
 "place": "Prestatyn",
 "short": "Prestatyn",
 "county": "house-clearance-denbighshire",
@@ -299,6 +304,7 @@ LOCATIONS = [
 },
 {
 "slug": "house-clearance-buckley",
+"nearby": 'Buckley is covered as part of our <a href="/house-clearance-flintshire/">Flintshire house clearance</a> service and wider <a href="/house-clearance-north-wales/">North Wales</a> coverage. We are regularly in neighbouring <a href="/house-clearance-mold/">Mold</a> too.',
 "place": "Buckley",
 "short": "Buckley",
 "county": "house-clearance-flintshire",

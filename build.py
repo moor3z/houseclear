@@ -26,6 +26,7 @@ COMPANY_NO = "14294404"
 REG_OFFICE = "Unit 5 Catherine Court, Manor Lane, Hawarden, Deeside, CH5 3NU"
 VAT_NO     = "441151045"
 WASTE_LIC  = "CBDU464597"
+REGISTER_URL = "https://environment.data.gov.uk/public-register/waste-carriers-brokers/registration/CBDU464597"
 BIZ_NAME = "HouseClear"
 PRICE_FROM, PRICE_FROM_NET = "£600", "£500 + VAT"
 # GitHub Pages preview support:
@@ -233,6 +234,7 @@ def hero(h1, sub, small=False, eyebrow=None, with_form=False):
     <div class="hero-form">
       <h2 class="hero-form-title">Get a Free Quote</h2>
       {quote_form(compact=True, prefix="hf")}
+      {form_proof()}
     </div>
   </div>
 </section>
@@ -373,6 +375,11 @@ def google_badge(cls="google-badge"):
     """Visible on-page rating badge linking to the profile."""
     return f"""<a class="{cls}" href="{GBP_URL}" rel="noopener" aria-label="Rated {GOOGLE_RATING} out of 5 from {GOOGLE_REVIEW_COUNT} Google reviews"><span class="gb-stars" aria-hidden="true">★★★★★</span><span class="gb-text"><strong>{GOOGLE_RATING}</strong> &middot; {GOOGLE_REVIEW_COUNT} Google reviews</span></a>"""
 
+def form_proof():
+    """Compact rating + one genuine review shown directly under each quote form."""
+    q, n, _ = next(t for t in TESTIMONIALS if t[1] == "Elaine Harburn")
+    return f"""<div class="form-proof"><a href="{GBP_URL}" rel="noopener" class="fp-rating"><span class="gb-stars" aria-hidden="true">★★★★★</span> <strong>{GOOGLE_RATING}</strong> from {GOOGLE_REVIEW_COUNT} Google reviews</a><blockquote>&ldquo;{esc(q)}&rdquo; <cite>&mdash; {esc(n)}</cite></blockquote></div>"""
+
 def review_cards(items):
     return "".join(
         f'<figure class="review-card"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote>{esc(q)}</blockquote><figcaption><span class="review-avatar" aria-hidden="true">{esc(n[:1])}</span><span><strong>{esc(n)}</strong><span>{esc(w)}</span></span></figcaption></figure>'
@@ -450,7 +457,7 @@ def quote_section():
     <li>Prefer to talk? Call <a href="tel:{p164}">{p}</a> or <a href="{WA_LINK}" rel="noopener">WhatsApp us</a></li>
   </ul>
 </div>
-{quote_form()}
+<div class="quote-form-col">{quote_form()}{form_proof()}</div>
 </div></section>"""
 
 def map_section():
@@ -489,7 +496,7 @@ def footer():
       <a href="/areas/">All areas</a>
     </nav>
     <p class="footer-legal">{BIZ_NAME} is a trading name of <a href="https://tidyupltd.com" rel="noopener">Tidy Up Ltd</a>, registered in England and Wales.<br>Registered office: {REG_OFFICE}</p>
-    <p class="footer-reg"><span>Company No: {COMPANY_NO}</span><span>VAT No: {VAT_NO}</span><span>Waste Carrier Licence: {WASTE_LIC}</span></p>
+    <p class="footer-reg"><span>Company No: {COMPANY_NO}</span><span>VAT No: {VAT_NO}</span><span>Waste Carrier Licence: <a href="{REGISTER_URL}" rel="noopener">{WASTE_LIC}</a></span></p>
     <p class="footer-copy">&copy; 2026 {BIZ_NAME}. All rights reserved.</p>
   </div>
 </footer>
@@ -523,6 +530,7 @@ def local_business_schema():
         "hasCredential": {"@type": "EducationalOccupationalCredential",
                           "credentialCategory": "Waste carrier registration",
                           "identifier": "CBDU464597",
+                          "url": REGISTER_URL,
                           "recognizedBy": {"@type": "GovernmentOrganization", "name": "Environment Agency"}},
         "geo": {"@type": "GeoCoordinates", "latitude": 53.1714193, "longitude": -2.7883998},
         "logo": DOMAIN + "/assets/icon-512.png",
@@ -706,8 +714,8 @@ def location_pages():
              "Fully insured; probate, bereavement, landlord and hoarder clearances handled",
              "Reusable furniture donated to local charities where possible",
              "Fixed quotes from photos or a free, no-obligation visit"])
-        intro = "".join(f"<p>{esc_keep_links(p)}</p>" for p in l["intro"])
-        towns = "".join(f"<li>{esc(t)}</li>" for t in sorted(l["towns"]))
+        intro = "".join(f"<p>{esc_keep_links(p)}</p>" for p in l["intro"] + ([l["nearby"]] if l.get("nearby") else []))
+        towns ="".join(f"<li>{esc(t)}</li>" for t in sorted(l["towns"]))
         parent = ""
         if l.get("county"):
             c = LOC[l["county"]]
@@ -754,7 +762,7 @@ def quote_page():
   </ul>
   <p>Every quote is fixed, itemised where helpful, and comes with our compliance credentials — waste carrier registration, insurance, and digital waste transfer notes on completion.</p>
 </div>
-{quote_form()}
+<div class="quote-form-col">{quote_form()}{form_proof()}</div>
 </div></section>"""
     body += trust_section()
     body += map_section()
@@ -839,7 +847,7 @@ def about_page():
 <p>HouseClear is run by <strong>{AUTHOR_NAME}, {AUTHOR_ROLE}</strong>. Our <a href="/guides/">house clearance guides</a> are written and reviewed by {AUTHOR_NAME}, drawing on the clearances our team carries out every week.</p>
 <h2>Our credentials</h2>
 <ul class="tick-list tick-list-lg">
-<li><strong>Registered waste carrier</strong> — Environment Agency registration <strong>CBDU464597</strong> (held by Tidy Up Ltd), valid for our work in both England and Wales, and verifiable on the public register.</li>
+<li><strong>Registered waste carrier</strong> — Environment Agency registration <strong>CBDU464597</strong> (held by Tidy Up Ltd), an upper-tier carrier, broker and dealer registration valid for our work in both England and Wales. <a href="{REGISTER_URL}" rel="noopener">Check our registration on the Environment Agency public register</a>.</li>
 <li><strong>Fully insured</strong> — public liability insurance covers every clearance we carry out, and certificates are supplied to agents, solicitors and housing providers on request.</li>
 <li><strong>Digital waste transfer notes</strong> — every clearance is documented with a digital waste transfer note, giving you legal proof of correct disposal.</li>
 <li><strong>VAT registered</strong> — VAT invoices are provided on completion (VAT No. 441151045), and can be addressed to an estate for probate accounting.</li>
