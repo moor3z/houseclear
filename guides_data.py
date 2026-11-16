@@ -4,7 +4,7 @@ GUIDE_CLUSTERS = [
     ("Compliance & paperwork", ["what-is-a-waste-transfer-note", "how-to-check-a-waste-carrier-licence"]),
     ("Probate & bereavement", ["clearing-a-house-during-probate", "clearing-a-house-after-a-death", "house-clearance-checklist-for-executors", "what-happens-to-belongings-after-a-house-clearance"]),
     ("Planning & costs", ["how-much-does-a-house-clearance-cost", "how-long-does-a-house-clearance-take", "how-to-prepare-for-a-house-clearance", "do-i-need-to-be-there-for-a-house-clearance", "house-clearance-vs-skip-hire"]),
-    ("Specialist clearances", ["how-to-help-clear-a-hoarders-home"]),
+    ("Specialist clearances", ["how-to-help-clear-a-hoarders-home", "tenant-left-belongings-behind-landlord-guide"]),
 ]
 
 GUIDES = [

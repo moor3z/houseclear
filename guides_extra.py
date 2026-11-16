@@ -206,4 +206,50 @@ EXTRA_GUIDES = [
 ],
 "related_services": ["house-clearance", "full-house-clearance", "hoarder-house-clearance"],
 },
+{
+"slug": "tenant-left-belongings-behind-landlord-guide",
+"cluster": "Specialist clearances",
+"title": "Tenant Left Belongings? A Landlord's Guide | HouseClear",
+"meta": "What landlords in England and Wales can do when a tenant leaves belongings behind: notices, waiting periods, records, and when a clearance can go ahead.",
+"h1": "What can a landlord do with belongings a tenant leaves behind?",
+"lead": "Items left in a rental still belong to the tenant. Here is the safe order of steps before anything is cleared.",
+"date": "2026-11-16",
+"body": [
+("", [
+ "<strong>A landlord cannot simply throw away belongings a tenant has left behind. The items still belong to the tenant, so the safe route is to confirm the tenancy has legally ended, record what is there, give written notice with a reasonable deadline to collect, and only then sell or clear what remains.</strong> This guide explains the general position for landlords in England and Wales. It is not legal advice, the rules differ between the two countries, and you should check your own situation with a solicitor or landlord association before disposing of anything.",
+]),
+("First, be sure the tenancy has ended", [
+ "This is the step that causes the most serious problems. If the tenant has not formally given up the property and you have no possession order, the tenancy may still be running even if the place looks empty. Entering, changing the locks and clearing it in that situation can amount to unlawful eviction.",
+ "Signs that a tenant has really gone include returned keys, written confirmation, or a surrender you have both agreed. If they have simply disappeared, get advice before you act. In Wales there is a set procedure for abandoned homes under the Renting Homes (Wales) Act 2016, which starts with a formal warning notice and a four-week warning period.",
+]),
+("Check the tenancy agreement", [
+ "Many agreements include a clause saying what happens to items left behind at the end of the tenancy, often with a set number of days before the landlord may dispose of them. If yours has one, follow it exactly and keep evidence that you did. A clause does not remove the need to act reasonably, but it makes your position much clearer.",
+]),
+("Record everything before you touch it", [
+ "Before moving anything, photograph every room and make a written inventory of what has been left, with the date. If you can, have the letting agent or another independent person present. Separate obvious rubbish, such as food waste and packaging, from possessions that have a use or a value. The record protects you if the tenant later claims something valuable went missing.",
+]),
+("Give written notice and a deadline", [
+ "In England, belongings left behind are covered by the Torts (Interference with Goods) Act 1977. In broad terms you become responsible for looking after the items, and the Act sets out a notice procedure that lets you sell or dispose of them if they are not collected. The notice should say what the items are, where they are held, how the tenant can collect them, and the date after which you intend to sell or dispose of them.",
+ "Send it to every address you have: the forwarding address, email, guarantor and next of kin if known, and leave a copy at the property. The Act does not fix a single notice period for ordinary cases. It needs to be long enough to give the tenant a fair chance to collect, and landlord advisers commonly suggest somewhere between 14 and 28 days. If the tenant owes you money and you intend to sell the items, the Act requires a longer period, so take advice first.",
+ "In Wales, where a contract has ended under the abandonment procedure, regulations require the landlord to safeguard property left in the home for four weeks before disposing of it, with some exceptions. Again, check the current rules before relying on this summary.",
+]),
+("Store the items safely in the meantime", [
+ "While the notice period runs, the belongings need to be kept reasonably safe. They can stay in the property if it is secure, or be moved to a garage or storage. Do not use them, lend them or let a new tenant have them. Keep receipts for any storage or removal costs.",
+]),
+("After the deadline", [
+ "If the tenant has not collected by the date in the notice, and you have followed the procedure, you can sell or dispose of what remains. If items are sold, the proceeds belong to the tenant after your reasonable costs, so keep a record of what was sold and for how much. Keep your photographs, inventory, copies of notices and proof of sending for several years.",
+]),
+("Arranging the clearance", [
+ "Once you are legally free to clear, an <a href='/services/end-of-tenancy-clearance/'>end of tenancy clearance</a> removes everything in one visit and gives you a waste transfer note for your records, which shows the contents were disposed of lawfully. Our guide to <a href='/guides/what-is-a-waste-transfer-note/'>waste transfer notes</a> explains why that matters to a landlord.",
+ "We can collect keys from your letting agent and you do not need to attend. See <a href='/guides/do-i-need-to-be-there-for-a-house-clearance/'>whether you need to be there for a clearance</a>. For flats, our <a href='/services/flat-clearance/'>flat clearance</a> service covers stairs, lifts and managing agents. We will ask you to confirm you are entitled to clear the property, and we cannot advise on whether the legal steps have been met.",
+]),
+],
+"faqs": [
+ ("Can I throw away a tenant's belongings as soon as they move out?", "No. Items left behind still belong to the tenant. As a general rule you need to give written notice with a reasonable deadline to collect, and keep the items safe until it passes. Follow any clause in your tenancy agreement and take legal advice if you are unsure."),
+ ("How long do I have to keep a tenant's belongings?", "In England there is no single fixed period for ordinary cases. The notice must give the tenant a fair chance to collect, and landlord advisers commonly suggest 14 to 28 days, or longer where money is owed and goods are to be sold. In Wales, four weeks applies where a contract ended under the abandonment procedure. Check the current rules for your situation."),
+ ("Can I keep or sell the items to cover unpaid rent?", "You cannot simply keep a tenant's belongings because rent is owed. Selling uncollected goods is only possible after the correct notice, the notice period is longer where money is owed, and any proceeds beyond your reasonable costs belong to the tenant. Take legal advice before selling anything."),
+ ("Can you clear a rental property that still has a tenant's things in it?", "Yes, once you confirm you are legally entitled to clear it. We remove everything in one visit, can collect keys from your agent, and provide a waste transfer note for your records. We cannot advise on whether your notice steps were sufficient."),
+],
+"related_services": ["end-of-tenancy-clearance", "flat-clearance", "full-house-clearance"],
+},
 ]
