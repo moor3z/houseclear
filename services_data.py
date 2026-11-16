@@ -38,6 +38,14 @@ SERVICES = [
 "meta": "Probate house clearance for executors, families and solicitors. Sensitive, fully documented, with invoices addressed to the estate. Free quotes.",
 "h1": "Probate House Clearance",
 "lead": "A careful, fully documented clearance service for executors, families and solicitors managing an estate.",
+"sections": [
+("Probate house clearance in Chester and Cheshire", [
+"Chester has a large stock of period and listed homes, and probate clearances make up a big share of our work in the city and across Cheshire and Flintshire. We work to completion dates set by local conveyancers, collect and return keys through solicitors and estate agents, and can visit, quote and hold a date before the grant of probate so the clearance happens promptly once the executor can act.",
+"See our <a href=\"/house-clearance-chester/\">Chester house clearance</a> and <a href=\"/house-clearance-cheshire/\">Cheshire</a> pages for the areas we cover."]),
+("For solicitors and executors", [
+"We can be instructed directly by a firm on behalf of an estate. On request we provide a written quote on letterhead, an itemised valuation of resaleable contents offset against the cost, VAT invoices addressed to the estate, a digital waste transfer note for the file, and before-and-after photos for executors who cannot attend.",
+"Practical reading for executors: <a href=\"/guides/clearing-a-house-during-probate/\">clearing a house during probate</a>, the <a href=\"/guides/house-clearance-checklist-for-executors/\">house clearance checklist for executors</a>, and <a href=\"/guides/what-is-a-waste-transfer-note/\">what a waste transfer note is</a>."]),
+],
 "intro": [
 "Clearing a property during probate carries responsibilities that an ordinary clearance does not. Executors need items handled correctly, paperwork kept in order, and a service that can work to the timescales of solicitors and estate agents. HouseClear provides exactly that.",
 "Our team searches carefully as we clear — setting aside documents, photographs, jewellery, and anything of sentimental or financial value we find, so nothing important is lost. Items with resale value can be itemised and offset against the cost of the clearance, which many executors find helpful when accounting to the estate.",
@@ -244,7 +252,15 @@ SERVICES = [
 "slug": "flat-clearance",
 "name": "Flat Clearance",
 "nav": "Flat Clearance",
-"title": "Flat & Apartment Clearance | Any Floor | HouseClear",
+"title": "Flat Clearance & Apartment Clearances | HouseClear",
+"sections": [
+("Flat clearances in Liverpool, Chester and the Wirral", [
+"Most of our flat clearances are in Liverpool city centre blocks, converted terraces and city-centre flats in Chester, and apartments across the Wirral and North Wales coast. Whether it is a studio or a three-bed penthouse, the process is the same: a fixed quote from photos or a visit, access planned in advance, and the flat and communal areas left clean.",
+"Flat clearances are priced by volume like any other clearance, with stairs, lift access and parking factored into the quote up front. See <a href=\"/guides/how-much-does-a-house-clearance-cost/\">how clearance prices work</a>."]),
+("Apartment clearance: lifts, stairs and managing agents", [
+"Apartment buildings come with rules. We book service lifts, send insurance details to managing agents ahead of time, work within permitted hours, and protect lift interiors and hallways as we go. If the building has no lift, we plan crew size around the stairs so the job still finishes on the day.",
+"For landlords and letting agents, we pair apartment clearance with our <a href=\"/services/end-of-tenancy-clearance/\">end of tenancy clearance</a> service, with waste transfer paperwork for your records."]),
+],
 "meta": "Flat and apartment clearance across Liverpool, Chester, the Wirral & North Wales. Upper floors, communal access and parking all handled. Free quotes.",
 "h1": "Flat & Apartment Clearance",
 "lead": "Upper floors, narrow staircases, communal entrances and permit parking — flats are our everyday work.",

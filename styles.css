@@ -1,3 +1,9 @@
+/* --------------- Nov 2026 audit additions ------------------- */
+.field-opt{font-weight:400;color:#5b6b7d;font-size:.9em}
+.steps-list{margin:0 0 20px 1.2em;padding:0}
+.steps-list li{margin-bottom:12px;padding-left:4px}
+.steps-more{margin-top:24px;text-align:center;font-weight:600}
+
 /* --------------- metric-matched font fallbacks (CLS guard) -- */
 @font-face{font-family:"Bricolage Fallback";src:local("Arial Bold"),local("Arial"),local("Helvetica");
   size-adjust:106%;ascent-override:94%;descent-override:24%;line-gap-override:0%}

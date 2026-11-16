@@ -436,6 +436,11 @@ LOCATIONS = [
 "Sitting between our Liverpool and Cheshire rounds, Widnes and Runcorn are easy for us to reach at short notice — useful when a relet, a completion date or a care-home move is looming. Much of our Halton work is probate and bereavement clearances handled patiently for families, end of tenancy clearances for the area's landlords and letting agents, and downsizing moves where only part of the contents needs to go.",
 "Every Widnes and Runcorn house clearance runs under our Environment Agency waste carrier registration, with reusable furniture donated or rehomed through local charities rather than scrapped, recyclables recovered at licensed facilities, and a digital waste transfer note and VAT invoice provided on completion. Quotes are free, fixed and usually same-day from photos."
 ],
+"sections": [
+("House clearance in Runcorn", [
+"Runcorn house clearances cover the Old Town and the streets around it, the 1960s and 70s new-town estates such as Murdishaw, Halton Brook and Palace Fields, Halton Village and Weston Point, and the newer homes towards Sandymoor and Daresbury. The new-town estates often have shared footpaths and parking courts rather than street frontage, so we check where the van can stand before the day.",
+"We clear Runcorn houses for families handling probate or bereavement, for landlords between tenancies, and for people downsizing. Every Runcorn clearance gets a fixed quote, our own insured team, and a digital waste transfer note on completion."]),
+],
 "towns": ["Widnes", "Runcorn", "Hale Village", "Cronton", "Halebank", "Ditton", "Farnworth", "Hough Green", "Halton Village", "Sandymoor", "Murdishaw", "Weston Point", "Daresbury"],
 "faqs": [
 ("Which areas of Widnes and Runcorn do you cover?", "All of Halton — Widnes including Farnworth, Ditton, Hough Green and Halebank; Runcorn including the Old Town, Halton Village, Sandymoor, Murdishaw and Weston Point; and the villages around, from Hale and Cronton to Daresbury."),

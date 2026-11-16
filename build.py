@@ -294,7 +294,8 @@ def how_it_works():
     return f"""<section class="section section-grey" id="how-it-works"><div class="wrap">
 <h2>How it works</h2>
 <p class="section-intro">Three simple steps from first photo to finished clearance.</p>
-<div class="steps-grid">{cards}</div></div></section>"""
+<div class="steps-grid">{cards}</div>
+<p class="steps-more"><a href="/quote/video/">How to get a fixed quote from a phone video &rarr;</a></p></div></section>"""
 
 TRUST_ICONS = {
     "licence": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="15" rx="2.5"/><path d="M7 9h6M7 13h3"/><path d="m13.5 14.5 2 2 3.5-4"/></svg>',
@@ -416,7 +417,7 @@ def quote_form(compact=False, prefix="qf"):
   <div class="form-grid">
     <div class="field"><label for="{p}-name">Name<span aria-hidden="true"> *</span></label><input id="{p}-name" name="name" type="text" autocomplete="name" toolparamdescription="Your full name" required></div>
     <div class="field"><label for="{p}-phone">Phone number<span aria-hidden="true"> *</span></label><input id="{p}-phone" name="phone" type="tel" autocomplete="tel" toolparamdescription="Best contact phone number" required></div>
-    <div class="field"><label for="{p}-email">Email address<span aria-hidden="true"> *</span></label><input id="{p}-email" name="email" type="email" autocomplete="email" toolparamdescription="Email address for the quote" required></div>
+    <div class="field"><label for="{p}-email">Email address <span class="field-opt">(optional)</span></label><input id="{p}-email" name="email" type="email" autocomplete="email" toolparamdescription="Email address for the quote (optional)"></div>
     <div class="field"><label for="{p}-postcode">Property postcode<span aria-hidden="true"> *</span></label><input id="{p}-postcode" name="postcode" type="text" autocomplete="postal-code" toolparamdescription="Postcode of the property to be cleared" required></div>
     <div class="field"><label for="{p}-service">Service required</label>
       <select id="{p}-service" name="service" toolparamdescription="Type of clearance required"><option value="">Please choose&hellip;</option>{services_opts}<option>Something else</option></select></div>
@@ -515,6 +516,10 @@ def local_business_schema():
         "priceRange": "££",
         "address": {"@type": "PostalAddress", "streetAddress": "Unit 5 Catherine Court, Manor Lane", "addressLocality": "Hawarden, Deeside", "addressRegion": "Flintshire", "postalCode": "CH5 3NU", "addressCountry": "GB"},
         "vatID": "GB441151045",
+        "identifier": {"@type": "PropertyValue", "propertyID": "Companies House company number", "value": COMPANY_NO},
+        "hasCredential": {"@type": "EducationalOccupationalCredential",
+                          "credentialCategory": "Waste carrier registration",
+                          "identifier": "CBDU464597"},
         "geo": {"@type": "GeoCoordinates", "latitude": 53.1714193, "longitude": -2.7883998},
         "logo": DOMAIN + "/assets/icon-512.png",
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "House clearance services",
@@ -535,6 +540,7 @@ def local_business_schema():
 
 def service_schema(name, desc, url, area=None):
     s = {"@context": "https://schema.org", "@type": "Service",
+         "@id": DOMAIN + url + "#service",
          "serviceType": name, "name": name, "description": desc,
          "url": DOMAIN + url,
          "provider": {"@id": DOMAIN + "/#business"},
@@ -567,9 +573,14 @@ URLS = []
 
 def homepage():
     body = hero(
-        "Professional <span class='hl'>House Clearance</span> Services",
-        f"{BIZ_NAME} provides respectful, efficient and fully compliant house clearances across Cheshire, North Wales, Liverpool and the Wirral — for homeowners, landlords, estate agents, solicitors and families dealing with probate or bereavement.",
+        "<span class='hl'>House Clearance</span> in Chester, Cheshire &amp; North Wales",
+        f"{BIZ_NAME} provides respectful, efficient and fully compliant house clearances across Chester, Cheshire, North Wales, Liverpool and the Wirral — for homeowners, landlords, estate agents, solicitors and families dealing with probate or bereavement.",
         with_form=True)
+    body += f"""<section class="section"><div class="wrap wrap-narrow svc-detail">
+<h2>House clearances in Chester</h2>
+<p>{BIZ_NAME} is based in Hawarden, a short drive from Chester, so Chester house clearances are our most frequent work. We clear Victorian terraces in Hoole and Handbridge, flats inside the city walls and above the Rows, and family homes in Upton, Blacon, Boughton and Vicars Cross — across CH1, CH2, CH3 and CH4.</p>
+<p>Most of our Chester work is probate and bereavement clearances for families and local solicitors, landlord turnarounds, and downsizing moves. Every clearance is priced by volume with a fixed quote, carried out by our own insured team, and documented with a digital waste transfer note. See the <a href="{loc_url('house-clearance-chester')}">areas of Chester we cover</a> or read <a href="{guide_url('how-much-does-a-house-clearance-cost')}">how house clearance prices work</a>.</p>
+</div></section>"""
     body += trust_section()
     body += services_grid(intro="From single-item collections to complete house clearances — every job insured, documented and disposed of responsibly. We handle house clearances of every kind across the region.")
     body += areas_grid(intro="Local teams covering Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral.")
@@ -589,13 +600,15 @@ def homepage():
     body += cta_band()
     schemas = [
         local_business_schema(),
-        {"@context": "https://schema.org", "@type": "WebSite", "name": BIZ_NAME,
-         "url": DOMAIN + "/"},
+        {"@context": "https://schema.org", "@type": "WebSite",
+         "@id": DOMAIN + "/#website", "name": BIZ_NAME,
+         "url": DOMAIN + "/", "inLanguage": "en-GB",
+         "publisher": {"@id": DOMAIN + "/#business"}},
         faq_schema(home_faqs),
     ]
     URLS.append(page("/", 
         "House Clearance Chester, Cheshire & North Wales | HouseClear",
-        "Professional, fully insured house clearance across Cheshire, Flintshire, Denbighshire, Liverpool & the Wirral. Licensed waste carrier. Free quotes.",
+        f"House clearance in Chester, Cheshire & North Wales. Fully insured, licensed waste carrier, rated {GOOGLE_RATING} on Google. Free quotes by phone, WhatsApp or video.",
         schemas, body, active="home"))
 
 def services_hub():
@@ -642,10 +655,12 @@ def service_pages():
              "VAT invoices provided; finance available on larger clearances"])
         intro = "".join(f"<p>{esc(p)}</p>" for p in s["intro"])
         includes = "".join(f"<li>{esc(i)}</li>" for i in s["includes"])
+        extra = "".join(f"<h2>{esc(h)}</h2>" + "".join(f"<p>{p}</p>" for p in ps) for h, ps in s.get("sections", []))
         body += f"""<section class="section"><div class="wrap wrap-narrow svc-detail">
 {intro}
 <h2>What's included</h2>
 <ul class="tick-list tick-list-lg">{includes}</ul>
+{extra}
 </div></section>"""
         body += how_it_works()
         if s["slug"] in ("bereavement-house-clearance", "probate-house-clearance"):
@@ -691,8 +706,10 @@ def location_pages():
         if l.get("county"):
             c = LOC[l["county"]]
             parent = f'<p class="parent-link">Part of our wider coverage of <a href="{loc_url(c["slug"])}">{esc(c["short"])}</a>.</p>'
+        extra = "".join(f"<h2>{esc(h)}</h2>" + "".join(f"<p>{p}</p>" for p in ps) for h, ps in l.get("sections", []))
         body += f"""<section class="section"><div class="wrap wrap-narrow svc-detail">
 {intro}
+{extra}
 <h2>Neighbourhoods and villages we cover</h2>
 <ul class="town-list">{towns}</ul>
 {parent}
@@ -726,7 +743,7 @@ def quote_page():
   <h2>Three ways to get your price</h2>
   <ul class="tick-list tick-list-lg">
     <li><strong>Use the form</strong> — tell us about the property and we'll reply with a fixed quote, usually within hours.</li>
-    <li><strong>WhatsApp us</strong> — the fastest option if you have photos: send them straight from your phone to <a href="{WA_LINK}" rel="noopener">our WhatsApp</a>.</li>
+    <li><strong>WhatsApp us</strong> — the fastest option if you have photos: send them straight from your phone to <a href="{WA_LINK}" rel="noopener">our WhatsApp</a>. Or <a href="/quote/video/">send a video for a quote</a> without a visit.</li>
     <li><strong>Call us</strong> — Chester <a href="tel:{PHONE_E164}">{PHONE}</a> or Liverpool <a href="tel:{PHONE2_E164}">{PHONE2}</a>, Monday to Saturday, 8am–6pm.</li>
   </ul>
   <p>Every quote is fixed, itemised where helpful, and comes with our compliance credentials — waste carrier registration, insurance, and digital waste transfer notes on completion.</p>
@@ -739,6 +756,59 @@ def quote_page():
         "Get a Free House Clearance Quote | HouseClear",
         "Get a fixed house clearance quote today. Send photos via our form or WhatsApp, or call us — covering Cheshire, North Wales, Liverpool & the Wirral.",
         [breadcrumb_schema(trail)], body, active="quote"))
+
+def video_quote_page():
+    url = "/quote/video/"
+    trail = [("Home", "/"), ("Get a Quote", "/quote/"), ("Video Quote", url)]
+    body = breadcrumbs(trail)
+    body += hero("House Clearance Video Quote",
+                 "Film the property on your phone, send it on WhatsApp, and get a fixed house clearance price without waiting in for a visit.",
+                 small=True, eyebrow="Free quotes")
+    body += key_facts(
+        "A video quote is a fixed house clearance price worked out from a short phone video of the property, sent to us on WhatsApp. It is free, there is no obligation, and most quotes go back the same day.",
+        ["No visit needed — ideal if you live away from the property",
+         "Works for executors, landlords and families handling a clearance remotely",
+         "Fixed price based on what we can see; nothing added on the day",
+         "If anything is unclear we ask for more footage or offer a free visit"])
+    steps = [
+        ("Walk through every room", "Start at the front door and film each room slowly, including inside wardrobes, cupboards and drawers that are full."),
+        ("Show the hidden spaces", "Loft, garage, shed, garden and any outbuildings. These are where most of the volume usually hides."),
+        ("Show the access", "Stairs, lifts, the route to the street and where a van can park. This lets us price access fairly up front."),
+        ("Tell us what stays", "Mention anything the family is keeping, and any items you think may have resale value, which can reduce the price."),
+        ("Send it on WhatsApp", f'Send the video (or several short clips) to <a href="{WA_LINK}" rel="noopener">our WhatsApp</a> with the property postcode. We reply with a fixed quote, usually the same day.'),
+    ]
+    items = "".join(f"<li><strong>{esc(h)}.</strong> {t}</li>" for h, t in steps)
+    body += f"""<section class="section"><div class="wrap wrap-narrow svc-detail">
+<h2>How to film your video quote</h2>
+<ol class="steps-list">{items}</ol>
+<p>A few minutes of footage is usually enough for a full house. Landscape or portrait both work; good light helps. If you would rather not film, use the <a href="/quote/">quote form</a> or call us to book a free visit.</p>
+<p><a class="btn btn-wa btn-lg" href="{WA_LINK}" rel="noopener">{wa_icon()} Send your video on WhatsApp</a></p>
+</div></section>"""
+    vfaqs = [
+        ("Is a video quote as accurate as a visit?", "For most properties, yes. We price by volume, and a clear walk-through shows us that. If something is hidden or unclear, we ask for more footage or arrange a free visit before confirming the price."),
+        ("Do I need to be at the property to film?", "Someone does — a family member, neighbour, agent or tenant can film it for you. Many executors who live elsewhere get the video this way and manage the rest of the clearance by phone."),
+        ("Will the price change on the day?", "Not for what was shown in the video. The quote is fixed. The only reason it would change is if there is substantially more to clear than the footage showed, and we would agree that with you before doing any extra work."),
+        ("What if the video is too large to send?", "Send it as several shorter clips, one per room or floor. WhatsApp handles those easily."),
+    ]
+    body += faq_section(vfaqs, "Video quotes — your questions answered")
+    body += cta_band("Ready to send your video?", "Film the property, send it on WhatsApp, and get a fixed price — usually the same day.")
+    URLS.append(page(url,
+        "House Clearance Video Quote | Fixed Price | HouseClear",
+        "Get a fixed house clearance quote from a phone video. Film each room, send it on WhatsApp, and get your price, usually the same day. No visit needed.",
+        [faq_schema(vfaqs), breadcrumb_schema(trail)], body, active="quote"))
+
+def not_found_page():
+    body = f"""<section class="hero hero-small"><div class="wrap hero-inner">
+<h1>Page not found</h1>
+<p class="hero-sub">That page doesn't exist or has moved. Try one of these instead.</p>
+<div class="hero-ctas"><a class="btn btn-light btn-lg" href="/">Homepage</a> <a class="btn btn-light btn-lg" href="/quote/">Get a free quote</a></div>
+</div></section>"""
+    body += services_grid()
+    body += areas_grid()
+    full = head("Page not found | HouseClear", "The page you were looking for could not be found.", "/404.html", [])
+    full = full.replace("</head>", '<meta name="robots" content="noindex">\n</head>')
+    write("/404.html", full + header_nav() + f'<main id="main">{body}</main>' + footer())
+    write("/_redirects", "/house-cheshire /house-clearance-cheshire/ 301\n/house-cheshire/ /house-clearance-cheshire/ 301\n")
 
 def thanks_page():
     body = f"""<section class="hero hero-small"><div class="wrap hero-inner">
@@ -911,6 +981,8 @@ if __name__ == "__main__":
     service_pages()
     location_pages()
     quote_page()
+    video_quote_page()
+    not_found_page()
     thanks_page()
     about_page()
     guides_hub()
