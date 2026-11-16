@@ -167,4 +167,43 @@ EXTRA_GUIDES = [
 ],
 "related_services": ["hoarder-house-clearance", "full-house-clearance", "bereavement-house-clearance"],
 },
+{
+"slug": "how-long-does-a-house-clearance-take",
+"cluster": "Planning & costs",
+"title": "How Long Does a House Clearance Take? | HouseClear",
+"meta": "Most HouseClear house clearances take 6 to 8 hours on site and are finished in one day. Lead times, crew size, and what makes a clearance take longer.",
+"h1": "How long does a house clearance take?",
+"lead": "Most house clearances are finished in a single working day. Here is what to expect from first enquiry to an empty house.",
+"date": "2026-11-16",
+"body": [
+("", [
+ "<strong>A typical HouseClear house clearance takes 6 to 8 hours on site and is completed in one day. We usually arrive at 8am, and most jobs can be booked 2 to 3 days after you accept the quote.</strong> Heavily filled or hoarded properties take longer, usually 2 to 3 days depending on how severe it is.",
+]),
+("The timeline from enquiry to empty house", [
+ "<strong>Quote: the same day.</strong> Send photos or a short video of each room and you will normally have a fixed price back that day. Our <a href='/quote/video/'>video quote guide</a> shows what to film.",
+ "<strong>Booking: usually 2 to 3 days ahead.</strong> Once you accept the quote, the clearance is typically carried out 2 to 3 days later. If you have a completion date or a tenancy deadline, tell us when you enquire so the date can be planned around it.",
+ "<strong>Clearance day: 6 to 8 hours.</strong> The team typically arrives at 8am and works through the property room by room. By the end of the day the house is empty, swept and locked, and you receive your waste transfer note and invoice.",
+]),
+("Why it only takes a day", [
+ "The speed comes from the size of the team. A typical clearance is carried out by a crew of six with three vehicles, so several rooms are cleared at once and loads leave for sorting while work carries on at the house. A couple of people with one van would need several days for the same job.",
+ "It also means less disruption. One day with a van outside is easier on neighbours, and on you, than a week of trips.",
+]),
+("What makes a clearance take longer", [
+ "<strong>Volume.</strong> This is the main factor. A house with a full loft, garage and shed holds far more than its rooms suggest. A <a href='/services/hoarder-house-clearance/'>hoarder house clearance</a> usually takes 2 to 3 days depending on severity, because there is much more to remove and it has to be searched as it goes. See our guide to <a href='/guides/how-to-help-clear-a-hoarders-home/'>clearing a hoarder's home</a>.",
+ "<strong>Access.</strong> Upper-floor flats without a lift, narrow staircases and long carries from where the vans can park all add time. Telling us about access when you enquire means it is allowed for in the plan and the quote.",
+ "<strong>Searching and sorting.</strong> In a probate or bereavement clearance the team looks for documents, photographs and valuables as it works, and sets aside anything the family is keeping. That care takes a little longer than simply emptying a house, and it is worth it.",
+]),
+("How to keep it quick", [
+ "Decide what is staying before the day and put it in one room. Show every space in your photos or video, including the loft, garage and garden, so there are no surprises. And make sure the team can get in and park. Our guide on <a href='/guides/how-to-prepare-for-a-house-clearance/'>how to prepare for a house clearance</a> has the full checklist.",
+ "Time and price are linked, since both depend on volume and access. See <a href='/guides/how-much-does-a-house-clearance-cost/'>how much a house clearance costs</a>.",
+]),
+],
+"faqs": [
+ ("Can a whole house be cleared in one day?", "Yes, in most cases. A typical clearance takes our team 6 to 8 hours on site, starting at around 8am. Very full or hoarded properties are the main exception and usually take 2 to 3 days."),
+ ("How soon can you clear a house?", "Usually 2 to 3 days after you accept the quote. If you are working to a deadline, tell us when you enquire and we will do our best to fit it."),
+ ("How long does it take to get a quote?", "Quotes normally go back the same day once we have photos or a video of the property."),
+ ("How many people will come?", "A typical house clearance is carried out by a crew of six with three vehicles. Smaller or larger jobs are staffed to suit."),
+],
+"related_services": ["house-clearance", "full-house-clearance", "hoarder-house-clearance"],
+},
 ]
