@@ -56,6 +56,12 @@ for g in GUIDES:
 # ------------------------------------------------------------ components ---
 def esc(t): return html.escape(t, quote=True)
 
+# Cache-busting: short content hash appended to CSS/JS URLs so browsers fetch
+# the new file after each deploy instead of a cached old copy.
+import hashlib as _hashlib
+ASSET_VER = {f: _hashlib.md5(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), f), "rb").read()).hexdigest()[:8]
+             for f in ("styles.css", "site.js")}
+
 import re as _re
 def esc_keep_links(text):
     """esc() for copy that may contain trusted internal <a href="/..."> links."""
@@ -107,7 +113,7 @@ def head(title, meta, canonical, schema_blocks):
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"></noscript>
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css?v={ASSET_VER['styles.css']}">
 {schemas}
 </head>
 <body>"""
@@ -505,7 +511,7 @@ def footer():
   <a href="{WA_LINK}" class="scb-wa" rel="noopener">{wa_icon()} WhatsApp</a>
   <a href="mailto:{EMAIL}" class="scb-email">{mail_icon()} Email</a>
 </div>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v={ASSET_VER['site.js']}" defer></script>
 </body></html>"""
 
 # ---------------------------------------------------------------- schema ---
