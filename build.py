@@ -717,6 +717,7 @@ def location_pages():
             f"HouseClear provides full and partial house clearances throughout {l['place']}, including {towns_sample}, with quotes usually provided the same day.",
             [f"Local team covering the whole of {l['place']}",
              "Registered waste carrier — digital waste transfer note with every clearance",
+             f"Prices from {PRICE_FROM} including VAT ({PRICE_FROM_NET}), fixed before we start",
              "Fully insured; probate, bereavement, landlord and hoarder clearances handled",
              "Reusable furniture donated to local charities where possible",
              "Fixed quotes from photos or a free, no-obligation visit"])
@@ -766,7 +767,7 @@ def quote_page():
     <li><strong>WhatsApp us</strong> — the fastest option if you have photos: send them straight from your phone to <a href="{WA_LINK}" rel="noopener">our WhatsApp</a>. Or <a href="/quote/video/">send a video for a quote</a> without a visit.</li>
     <li><strong>Call us</strong> on <a href="tel:{PHONE_E164}">{PHONE}</a>, Monday to Saturday, 8am–6pm.</li>
   </ul>
-  <p>Every quote is fixed, itemised where helpful, and comes with our compliance credentials — waste carrier registration, insurance, and digital waste transfer notes on completion.</p>
+  <p>House clearances start at {PRICE_FROM} including VAT ({PRICE_FROM_NET}) — see <a href="/guides/how-much-does-a-house-clearance-cost/">how pricing works</a>. Every quote is fixed, itemised where helpful, and comes with our compliance credentials — waste carrier registration, insurance, and digital waste transfer notes on completion.</p>
 </div>
 <div class="quote-form-col">{quote_form()}{form_proof()}</div>
 </div></section>"""
@@ -789,6 +790,7 @@ def video_quote_page():
         ["No visit needed — ideal if you live away from the property",
          "Works for executors, landlords and families handling a clearance remotely",
          "Fixed price based on what we can see; nothing added on the day",
+         f"Clearances start at {PRICE_FROM} including VAT ({PRICE_FROM_NET})",
          "If anything is unclear we ask for more footage or offer a free visit"])
     steps = [
         ("Walk through every room", "Start at the front door and film each room slowly, including inside wardrobes, cupboards and drawers that are full."),
@@ -913,6 +915,7 @@ Key facts:
 ## Company
 - [About HouseClear]({DOMAIN}/about/): credentials, disposal process and who we work with
 - [Get a free quote]({DOMAIN}/quote/): fixed quotes from photos, phone or WhatsApp
+- [Video quote]({DOMAIN}/quote/video/): how to get a fixed price from a phone video sent on WhatsApp
 """)
 
 def related_guides_chips(svc_slug):
