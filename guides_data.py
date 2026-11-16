@@ -136,14 +136,21 @@ GUIDES = [
 {
 "slug": "how-much-does-a-house-clearance-cost",
 "cluster": "Planning & costs",
-"title": "How Much Does a House Clearance Cost? | HouseClear",
-"meta": "House clearance pricing explained: how volume-based quotes work, what moves the price up or down, and how contents value can reduce your bill.",
+"title": "House Clearance Cost: Prices from £600 | HouseClear",
+"meta": "HouseClear house clearances start at £600 including VAT (£500 + VAT). What's included, what moves the price up or down, and how to get a fixed quote.",
+"updated": "2026-11-16",
 "h1": "How much does a house clearance cost?",
-"lead": "No two properties price the same, but the way clearance pricing works is simple — here's what actually drives your quote.",
+"lead": "HouseClear house clearances start at £600 including VAT (£500 + VAT). Above that, the way clearance pricing works is simple — here's what actually drives your quote.",
 "date": "2026-07-12",
 "body": [
 ("", [
- "The honest answer to \"how much?\" is that clearance pricing is driven by <strong>volume</strong> — how much space the contents take up in the van — adjusted for access, item types and how much labour the job needs. That's why reputable firms quote from photos or a visit rather than reading a price off a chart: a three-bed house that's been half-emptied by family prices completely differently from an identical house with a full loft and garage.",
+ "<strong>House clearances with HouseClear start at £600 including VAT (£500 + VAT).</strong> Larger or fuller properties are priced individually above that, and every quote is fixed before any work starts.",
+]),
+("What's included in the price", [
+ "Every quote includes our insured team, all the lifting, loading and sorting, transport, disposal at licensed facilities, a digital waste transfer note and a VAT invoice. Reusable items are donated or resold rather than thrown away. Tipping fees and paperwork are included in the price we agree, not added on top.",
+]),
+("How larger clearances are priced", [
+ "Above the starting price, clearance pricing is driven by <strong>volume</strong> — how much space the contents take up in the van — adjusted for access, item types and how much labour the job needs. That's why reputable firms quote from photos or a visit rather than reading a price off a chart: a three-bed house that's been half-emptied by family prices completely differently from an identical house with a full loft and garage.",
 ]),
 ("What moves the price up", [
  "More volume, obviously — but also difficult access (third-floor flats without lifts, long carries from parking), heavy or awkward single items like pianos and safes, items needing specialist disposal routes such as fridges and freezers, and properties in poor condition where the team needs protective handling. A <a href=\"/services/hoarder-house-clearance/\">hoarder clearance</a> is the clearest example: hoarded homes reliably hold two or three times the volume they appear to.",
@@ -160,6 +167,7 @@ GUIDES = [
 ]),
 ],
 "faqs": [
+ ("What is the cheapest house clearance you do?", "Our house clearances start at £600 including VAT (£500 + VAT). Larger jobs are priced by volume, access and resale value, and the quote is fixed before we start."),
  ("Why won't clearance companies give a price over the phone without photos?", "Because volume drives the price and descriptions are unreliable — \"a few bits in the garage\" ranges from three boxes to a full double garage. Photos protect you as much as the company: they make the quote fixed rather than revisable on the day."),
  ("Is a house clearance cheaper than doing it myself with a skip?", "Often, once you cost it honestly: skip hire plus permit, your own days of loading, tip runs for what doesn't fit, and no resale offset. Our comparison guide covers when a skip genuinely is the better choice."),
  ("Can the value of the contents really cover the clearance?", "Occasionally, yes — where there's quality furniture or collectables in good condition. More typically it takes a worthwhile percentage off. Either way it should be itemised on your quote, not vaguely promised."),

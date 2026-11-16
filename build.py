@@ -25,6 +25,7 @@ REG_OFFICE = "Unit 5 Catherine Court, Manor Lane, Hawarden, Deeside, CH5 3NU"
 VAT_NO     = "441151045"
 WASTE_LIC  = "CBDU464597"
 BIZ_NAME = "HouseClear"
+PRICE_FROM, PRICE_FROM_NET = "£600", "£500 + VAT"
 # GitHub Pages preview support:
 #   BASE_PATH=/repo-name OUT_DIR=docs python3 build.py
 # rewrites internal links for a subfolder host and noindexes every page.
@@ -441,6 +442,7 @@ def quote_section():
   <h2>Get your free quote</h2>
   <p>Tell us a little about the property and we'll come back with a fixed price — most quotes go back the same day. Photos help us quote fastest: send them straight over on <a href="{WA_LINK}" rel="noopener">WhatsApp</a>.</p>
   <ul class="tick-list">
+    <li>Clearances start at {PRICE_FROM} including VAT ({PRICE_FROM_NET}) — <a href="/guides/how-much-does-a-house-clearance-cost/">see how pricing works</a></li>
     <li>Fixed price — what we quote is what you pay</li>
     <li>No obligation and no pushy follow-up calls</li>
     <li>Prefer to talk? Call <a href="tel:{p164}">{p}</a> or <a href="{WA_LINK}" rel="noopener">WhatsApp us</a></li>
@@ -513,13 +515,14 @@ def local_business_schema():
             {"@type": "ContactPoint", "telephone": PHONE2_E164, "contactType": "customer service", "areaServed": "GB", "name": "Liverpool"}],
         "email": EMAIL,
         "image": DOMAIN + "/assets/og-image.jpg",
-        "priceRange": "££",
+        "priceRange": f"From {PRICE_FROM} inc. VAT",
         "address": {"@type": "PostalAddress", "streetAddress": "Unit 5 Catherine Court, Manor Lane", "addressLocality": "Hawarden, Deeside", "addressRegion": "Flintshire", "postalCode": "CH5 3NU", "addressCountry": "GB"},
         "vatID": "GB441151045",
         "identifier": {"@type": "PropertyValue", "propertyID": "Companies House company number", "value": COMPANY_NO},
         "hasCredential": {"@type": "EducationalOccupationalCredential",
                           "credentialCategory": "Waste carrier registration",
-                          "identifier": "CBDU464597"},
+                          "identifier": "CBDU464597",
+                          "recognizedBy": {"@type": "GovernmentOrganization", "name": "Environment Agency"}},
         "geo": {"@type": "GeoCoordinates", "latitude": 53.1714193, "longitude": -2.7883998},
         "logo": DOMAIN + "/assets/icon-512.png",
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "House clearance services",
@@ -579,7 +582,7 @@ def homepage():
     body += f"""<section class="section"><div class="wrap wrap-narrow svc-detail">
 <h2>House clearances in Chester</h2>
 <p>{BIZ_NAME} is based in Hawarden, a short drive from Chester, so Chester house clearances are our most frequent work. We clear Victorian terraces in Hoole and Handbridge, flats inside the city walls and above the Rows, and family homes in Upton, Blacon, Boughton and Vicars Cross — across CH1, CH2, CH3 and CH4.</p>
-<p>Most of our Chester work is probate and bereavement clearances for families and local solicitors, landlord turnarounds, and downsizing moves. Every clearance is priced by volume with a fixed quote, carried out by our own insured team, and documented with a digital waste transfer note. See the <a href="{loc_url('house-clearance-chester')}">areas of Chester we cover</a> or read <a href="{guide_url('how-much-does-a-house-clearance-cost')}">how house clearance prices work</a>.</p>
+<p>Most of our Chester work is probate and bereavement clearances for families and local solicitors, landlord turnarounds, and downsizing moves. Clearances start at {PRICE_FROM} including VAT ({PRICE_FROM_NET}), with a fixed quote agreed before we start. Every job is carried out by our own insured team, and documented with a digital waste transfer note. See the <a href="{loc_url('house-clearance-chester')}">areas of Chester we cover</a> or read <a href="{guide_url('how-much-does-a-house-clearance-cost')}">how house clearance prices work</a>.</p>
 </div></section>"""
     body += trust_section()
     body += services_grid(intro="From single-item collections to complete house clearances — every job insured, documented and disposed of responsibly. We handle house clearances of every kind across the region.")
@@ -587,6 +590,7 @@ def homepage():
     body += how_it_works()
     body += testimonials_section(items=TESTIMONIALS[:6])
     home_faqs = [
+        ("How much does a house clearance cost?", f"Our house clearances start at {PRICE_FROM} including VAT ({PRICE_FROM_NET}). Larger or fuller properties are priced by volume, access and any resale value, and the quote is fixed before we start. Our cost guide explains what moves the price."),
         ("How do I get a house clearance quote?", "Send a few photos over WhatsApp, use our quote form, or book a free visit. We price by volume and confirm a fixed quote — usually the same day — with no obligation."),
         ("Are you licensed and insured?", "Yes. HouseClear is a registered waste carrier with full public liability insurance, and every clearance comes with a digital waste transfer note and a VAT invoice."),
         ("What happens to the items you clear?", "Reusable furniture and household goods are donated to local charities or resold, recyclables are recovered at licensed facilities, and only genuine waste goes for disposal."),
@@ -649,6 +653,7 @@ def service_pages():
         body += key_facts(
             f"HouseClear provides {s['name'].lower()} across Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral, with fixed quotes usually provided the same day.",
             ["Registered waste carrier — digital waste transfer note with every job",
+             f"Prices from {PRICE_FROM} including VAT ({PRICE_FROM_NET}), fixed before we start",
              "Fully insured, uniformed local team",
              "Fixed quotes from photos, a description or a free visit",
              "Reusable items donated, resold or recycled before anything is disposed of",
@@ -829,6 +834,8 @@ def about_page():
                  small=True, eyebrow="About us")
     body += f"""<section class="section"><div class="wrap wrap-narrow svc-detail">
 <p><strong>HouseClear is a professional house clearance company serving Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral.</strong> HouseClear is a trading name of Tidy Up Ltd, an established Chester-based clearance and waste management company — so behind the HouseClear name sits an experienced team, existing insurance, and a current Environment Agency waste carrier registration held by Tidy Up Ltd. We clear houses, flats, garages, lofts and commercial-adjacent domestic properties for homeowners, landlords, estate agents, solicitors and families dealing with probate or bereavement.</p>
+<h2>Who runs HouseClear</h2>
+<p>HouseClear is run by <strong>{AUTHOR_NAME}, {AUTHOR_ROLE}</strong>. Our <a href="/guides/">house clearance guides</a> are written and reviewed by {AUTHOR_NAME}, drawing on the clearances our team carries out every week.</p>
 <h2>Our credentials</h2>
 <ul class="tick-list tick-list-lg">
 <li><strong>Registered waste carrier</strong> — Environment Agency registration <strong>CBDU464597</strong> (held by Tidy Up Ltd), valid for our work in both England and Wales, and verifiable on the public register.</li>
@@ -853,6 +860,7 @@ def about_page():
         {"@context": "https://schema.org", "@type": "AboutPage",
          "name": "About HouseClear", "url": DOMAIN + "/about/",
          "mainEntity": {"@id": DOMAIN + "/#business"}},
+        dict({"@context": "https://schema.org"}, **author_schema()),
         breadcrumb_schema(trail)]
     URLS.append(page("/about/",
         "About HouseClear | Licensed Clearance Specialists",
@@ -868,7 +876,7 @@ def llms_txt():
     guide_lines = "\n".join(f"- [{g['h1']}]({DOMAIN}{guide_url(g['slug'])}): {g['meta']}" for g in GUIDES)
     write("/llms.txt", f"""# {BIZ_NAME}
 
-> {BIZ_NAME} is a professional house clearance company covering Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral (UK). Registered waste carrier, fully insured. Every clearance includes a digital waste transfer note and VAT invoice. Reusable items are donated, resold or recycled before disposal. Fixed quotes from photos, usually the same day. Phone: {PHONE} (Chester) or {PHONE2} (Liverpool). Website: {DOMAIN}/
+> {BIZ_NAME} is a professional house clearance company covering Cheshire, Flintshire, Denbighshire, Liverpool, Wrexham and the Wirral (UK). Registered waste carrier, fully insured. Every clearance includes a digital waste transfer note and VAT invoice. Reusable items are donated, resold or recycled before disposal. House clearances start at {PRICE_FROM} including VAT ({PRICE_FROM_NET}); fixed quotes from photos or video, usually the same day. Phone: {PHONE} (Chester) or {PHONE2} (Liverpool). Website: {DOMAIN}/
 
 Key facts:
 - Services: full and partial house clearance, probate and bereavement clearance, hoarder clearance, garage, loft and flat clearance, end of tenancy clearance
@@ -898,13 +906,25 @@ def related_guides_chips(svc_slug):
     chips = "".join(f'<a class="area-chip" href="{guide_url(g)}">{esc(GDE[g]["h1"])}</a>' for g in slugs)
     return f"""<section class="section section-grey"><div class="wrap"><h2>Helpful guides</h2><div class="area-chips">{chips}<a class="area-chip area-chip-all" href="/guides/">All guides &rarr;</a></div></div></section>"""
 
+AUTHOR_NAME, AUTHOR_ROLE = "Kamen", "Director"
+
+def author_schema():
+    return {"@type": "Person", "@id": DOMAIN + "/about/#kamen",
+            "name": AUTHOR_NAME, "jobTitle": AUTHOR_ROLE,
+            "worksFor": {"@id": DOMAIN + "/#business"},
+            "url": DOMAIN + "/about/"}
+
+def nice_date(d):
+    import datetime
+    return datetime.date.fromisoformat(d).strftime("%-d %B %Y")
+
 def article_schema(g):
     return {"@context": "https://schema.org", "@type": "Article",
             "headline": g["h1"], "description": g["meta"],
             "url": DOMAIN + guide_url(g["slug"]),
-            "datePublished": g["date"], "dateModified": g["date"],
+            "datePublished": g["date"], "dateModified": g.get("updated", g["date"]),
             "image": [DOMAIN + "/assets/og-image.jpg"],
-            "author": {"@type": "Organization", "name": BIZ_NAME, "url": DOMAIN + "/"},
+            "author": author_schema(),
             "publisher": {"@id": DOMAIN + "/#business"}}
 
 def guides_hub():
@@ -936,7 +956,9 @@ def guide_pages():
         for h2, paras in g["body"]:
             if h2: sections.append(f"<h2>{esc(h2)}</h2>")
             sections.extend(f"<p>{p}</p>" for p in paras)  # raw HTML: carries contextual links
-        body += f"""<section class="section"><div class="wrap wrap-narrow svc-detail guide-body">{''.join(sections)}</div></section>"""
+        upd = g.get("updated", g["date"])
+        byline = f'<p class="byline">By <a href="/about/">{AUTHOR_NAME}</a>, {AUTHOR_ROLE} at {BIZ_NAME} &middot; Updated <time datetime="{upd}">{nice_date(upd)}</time></p>'
+        body += f"""<section class="section"><div class="wrap wrap-narrow svc-detail guide-body">{byline}{''.join(sections)}</div></section>"""
         body += faq_section(g["faqs"], "Related questions")
         svc_chips = "".join(f'<a class="area-chip" href="{svc_url(s)}">{esc(SVC[s]["name"])}</a>' for s in g["related_services"])
         others = [o for c, sl in GUIDE_CLUSTERS for o in sl if c == g["cluster"] and o != g["slug"]]

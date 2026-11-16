@@ -3,6 +3,7 @@
 .steps-list{margin:0 0 20px 1.2em;padding:0}
 .steps-list li{margin-bottom:12px;padding-left:4px}
 .steps-more{margin-top:24px;text-align:center;font-weight:600}
+.byline{font-size:.92rem;color:#5b6b7d;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid #e3e8ee}
 
 /* --------------- metric-matched font fallbacks (CLS guard) -- */
 @font-face{font-family:"Bricolage Fallback";src:local("Arial Bold"),local("Arial"),local("Helvetica");
